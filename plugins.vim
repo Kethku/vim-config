@@ -1,49 +1,51 @@
 " Setup
-call plug#begin('~/AppData/Local/nvim/plugged')
+set runtimepath+=~/AppData/Local/nvim/dein/repos/github.com/Shougo/dein.vim
+
+if dein#load_state('~/AppData/Local/nvim/dein')
+  call dein#begin('~/AppData/Local/nvim/dein')
 
   " Appearance
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'morhetz/gruvbox'
-  Plug 'sickill/vim-monokai'
-  Plug 'lifepillar/vim-solarized8'
-  Plug 'roman/golden-ratio'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'yuttie/comfortable-motion.vim'
-  Plug 'gcmt/taboo.vim'
+  call dein#add('vim-airline/vim-airline')
+  call dein#add('vim-airline/vim-airline-themes')
+  call dein#add('morhetz/gruvbox')
+  call dein#add('sickill/vim-monokai')
+  call dein#add('lifepillar/vim-solarized8')
+  call dein#add('roman/golden-ratio')
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('ryanoasis/vim-devicons')
+  call dein#add('yuttie/comfortable-motion.vim')
+  call dein#add('gcmt/taboo.vim')
 
   " General Settings
-  Plug 'tpope/vim-sensible'
-  Plug 'tpope/vim-sleuth'
-  Plug 'tpope/vim-endwise'
-  Plug 'jiangmiao/auto-pairs'
+  call dein#add('tpope/vim-sensible')
+  call dein#add('tpope/vim-sleuth')
+  call dein#add('tpope/vim-endwise')
+  call dein#add('jiangmiao/auto-pairs')
 
   " File Management
-  Plug 'tpope/vim-vinegar'
+  call dein#add('tpope/vim-vinegar')
 
   " Completion
-  Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-  Plug 'junegunn/fzf'
-  Plug 'junegunn/fzf.vim'
+  call dein#add('neoclide/coc.nvim', { 'rev': 'release' })
+  call dein#add('junegunn/fzf')
+  call dein#add('junegunn/fzf.vim')
 
   " Git
-  Plug 'tpope/vim-fugitive'
+  call dein#add('tpope/vim-fugitive')
 
   " Key Bindings
-  Plug 'tpope/vim-commentary'
-  Plug 'tpope/vim-surround'
-  Plug 'liuchengxu/vim-which-key'
+  call dein#add('tpope/vim-commentary')
+  call dein#add('tpope/vim-surround')
+  call dein#add('liuchengxu/vim-which-key')
 
   " Typescript
-  Plug 'leafgarland/typescript-vim'
-  Plug 'ianks/vim-tsx'
-
-  " C#
-  Plug 'neovim/nvim.net'
+  call dein#add('leafgarland/typescript-vim')
+  call dein#add('ianks/vim-tsx')
 
   " Powershell
-  Plug 'PProvost/vim-ps1'
+  call dein#add('PProvost/vim-ps1')
 
-" Cleanup
-call plug#end()
+  " Cleanup
+  call dein#end()
+  call dein#save_state()
+end

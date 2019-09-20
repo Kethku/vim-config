@@ -70,7 +70,7 @@ nnoremap <silent> <leader>kw :wq<CR>
 let g:which_key_map.k.w = 'kill window'
 
 let g:which_key_map.t = { 'name' : '+terminal' }
-nmap <silent> <leader>tt <Esc>:tabnew<CR>:term<CR>:TabooRename Terminal<CR>
+nmap <silent> <leader>tt <Esc>:tabnew<CR>:TabooRename Terminal<CR>:edit term://pwsh<CR>
 let g:which_key_map.t.t = 'new terminal tab'
 
 let g:which_key_map[';'] = { 'name' : '+commentary' }

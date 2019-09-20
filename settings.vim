@@ -24,4 +24,3 @@ set ignorecase
 set smartcase
 set clipboard=unnamed
 set timeoutlen=100
-set shell=pwsh
