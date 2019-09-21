@@ -13,6 +13,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_section_z = '%3p%% %3l/%L:%3v'
 let g:airline_left_sep = "\uE0B4"
 let g:airline_right_sep = "\uE0B6"
+let g:markdown_fenced_languages = ['javascript', 'typescript', 'js=javascript']
 
 filetype plugin indent on
 

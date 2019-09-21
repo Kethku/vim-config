@@ -11,9 +11,9 @@ let g:which_key_map = {}
 let g:which_key_map.v = { 'name' : '+vim' }
 nnoremap <silent> <leader>vr :source $MYVIMRC<CR>
 let g:which_key_map.v.r = 'reload config'
-nnoremap <silent> <leader>vi :source $MYVIMRC<CR>:PlugInstall!<CR>
+nnoremap <silent> <leader>vi :source $MYVIMRC<CR>:call dein#install()<CR>
 let g:which_key_map.v.i = 'install plugins'
-nnoremap <silent> <leader>vu :source $MYVIMRC<CR>:PlugUpdate!<CR>
+nnoremap <silent> <leader>vu :source $MYVIMRC<CR>:call dein#update()<CR>
 let g:which_key_map.v.u = 'update plugins'
 let g:which_key_map.v.e = { 'name' : '+edit' }
 nnoremap <silent> <leader>vei :e $MYVIMRC<CR>
@@ -83,7 +83,9 @@ call which_key#register('<Space>', 'g:which_key_map')
 """"""""""
 
 nmap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> <C-.> :CocFix<CR>
+nmap <silent> <C-.> <Plug>(coc-codeaction)
+vmap <silent> <C-.> <Plug>(coc-codeaction)
+nnoremap <silent> gh :<C-u>call CocAction('doHover')<CR>
 
 " VISUAL "
 """"""""""
