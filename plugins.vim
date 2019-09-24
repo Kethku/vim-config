@@ -21,6 +21,7 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#add('tpope/vim-sensible')
   call dein#add('tpope/vim-sleuth')
   call dein#add('tpope/vim-endwise')
+  call dein#add('tpope/vim-obsession')
   call dein#add('jiangmiao/auto-pairs')
 
   " File Management
@@ -46,6 +47,9 @@ if dein#load_state('~/AppData/Local/nvim/dein')
 
   " Powershell
   call dein#add('PProvost/vim-ps1')
+
+  " Personal
+  call dein#add('c:/dev/Projects/adventurer')
 
   " Cleanup
   call dein#end()
