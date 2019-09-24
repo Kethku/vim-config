@@ -103,8 +103,8 @@ tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 " Tabs "
 """"""""
 
-inoremap <silent> <C-Tab> :tabn<CR>
-inoremap <silent> <C-S-Tab> :tabp<CR>
+inoremap <silent> <C-Tab> <Esc>:tabn<CR>
+inoremap <silent> <C-S-Tab> <Esc>:tabp<CR>
 nnoremap <silent> <C-Tab> :tabn<CR>
 nnoremap <silent> <C-S-Tab> :tabp<CR>
 vnoremap <silent> <C-Tab> :tabn<CR>

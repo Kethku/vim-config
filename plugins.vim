@@ -33,6 +33,7 @@ if dein#load_state('~/AppData/Local/nvim/dein')
 
   " Git
   call dein#add('tpope/vim-fugitive')
+  call dein#add('sodapopcan/vim-twiggy')
 
   " Key Bindings
   call dein#add('tpope/vim-commentary')
