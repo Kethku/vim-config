@@ -7,6 +7,9 @@ let g:airline_theme='gruvbox'
 
 set guifont=Fira\ Code:h14
 
+set winblend=20
+set pumblend=20
+
 " Airline
 let g:airline_powerline_fonts = 1
 let g:airline_section_z = '%3p%% %3l/%L:%3v'
@@ -21,6 +24,8 @@ let g:airline#extensions#tabline#tabs_label = 'T'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 let g:markdown_fenced_languages = ['javascript', 'typescript', 'js=javascript']
+
+let g:gruvbox_invert_selection = 1
 
 filetype plugin indent on
 
