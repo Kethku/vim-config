@@ -81,7 +81,7 @@ let g:which_key_map[';'][';'] = 'current line'
 call which_key#register('<Space>', 'g:which_key_map')
 
 " CoC "
-""""""""""
+"""""""
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> <C-.> <Plug>(coc-codeaction)

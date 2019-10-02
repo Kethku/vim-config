@@ -18,11 +18,9 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#add('tpope/vim-markdown')
 
   " General Settings
-  call dein#add('tpope/vim-sensible')
   call dein#add('tpope/vim-sleuth')
   call dein#add('tpope/vim-endwise')
   call dein#add('tpope/vim-obsession')
-  call dein#add('jiangmiao/auto-pairs')
 
   " File Management
   call dein#add('tpope/vim-vinegar')
@@ -49,7 +47,7 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#add('PProvost/vim-ps1')
 
   " Personal
-  call dein#add('c:/dev/Projects/adventurer')
+  call dein#add('c:/dev/Projects/vim-balsamic')
 
   " Cleanup
   call dein#end()
