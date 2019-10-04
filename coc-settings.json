@@ -1,5 +1,4 @@
 {
   "suggest.noselect": false,
-  "coc.source.around.enable": false,
-  "coc.preferences.formatOnType": true
+  "coc.source.around.enable": false
 }

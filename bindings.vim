@@ -2,7 +2,6 @@
 """"""""""
 
 let g:mapleader = "\<Space>"
-let g:maplocalleader = "."
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 
@@ -61,10 +60,12 @@ nnoremap <silent> <leader>bj :blast<CR>
 let g:which_key_map.b.j = 'last'
 
 let g:which_key_map.f = { 'name' : '+file' }
-  nnoremap <silent> <leader>fr :History<CR>
-  let g:which_key_map.f.r = 'recent file'
+nnoremap <silent> <leader>fr :History<CR>
+let g:which_key_map.f.r = 'recent file'
 nnoremap <silent> <leader>fs :w<CR>
 let g:which_key_map.f.s = 'save file'
+nnoremap <silent> <leader>ff :CocCommand prettier.formatFile<CR>
+let g:which_key_map.f.f = 'format file'
 
 let g:which_key_map.k = { 'name' : '+kill' }
 nnoremap <silent> <leader>kw :wq<CR>
@@ -78,6 +79,44 @@ let g:which_key_map[';'] = { 'name' : '+commentary' }
 nnoremap <silent> <leader>;; :.Commentary<CR>
 let g:which_key_map[';'][';'] = 'current line'
 
+let g:which_key_map[' '] = { 'name' : '+easymotion' }
+nmap <silent> <leader><leader>f <Plug>(easymotion-f)
+let g:which_key_map[' '].f = 'f{char} jump to character'
+nmap <silent> <leader><leader>F <Plug>(easymotion-F)
+let g:which_key_map[' '].F = 'F{char} jump backwards to character'
+nmap <silent> <leader><leader>t <Plug>(easymotion-t)
+let g:which_key_map[' '].t = 't{char} jump to before character'
+nmap <silent> <leader><leader>T <Plug>(easymotion-T)
+let g:which_key_map[' '].T = 'T{char} jump backwards to after character'
+nmap <silent> <leader><leader>w <Plug>(easymotion-w)
+let g:which_key_map[' '].w = 'w jump to word'
+nmap <silent> <leader><leader>W <Plug>(easymotion-W)
+let g:which_key_map[' '].W = 'W jump to WORD'
+nmap <silent> <leader><leader>b <Plug>(easymotion-b)
+let g:which_key_map[' '].b = 'b jump backwards to word'
+nmap <silent> <leader><leader>B <Plug>(easymotion-B)
+let g:which_key_map[' '].B = 'B jump backwards to WORD'
+nmap <silent> <leader><leader>e <Plug>(easymotion-e)
+let g:which_key_map[' '].e = 'e jump to end of word'
+nmap <silent> <leader><leader>E <Plug>(easymotion-E)
+let g:which_key_map[' '].E = 'E jump to end of WORD'
+let g:which_key_map[' '].g = { 'name' : '+back' }
+nmap <silent> <leader><leader>ge <Plug>(easymotion-ge)
+let g:which_key_map[' '].g.e = 'ge jump backwards to end of word'
+nmap <silent> <leader><leader>gE <Plug>(easymotion-gE)
+let g:which_key_map[' '].g.E = 'gE jump backwards to end of WORD'
+nmap <silent> <leader><leader>j <Plug>(easymotion-j)
+let g:which_key_map[' '].j = 'j jump down to line'
+nmap <silent> <leader><leader>k <Plug>(easymotion-k)
+let g:which_key_map[' '].k = 'k jump up to line'
+nmap <silent> <leader><leader>n <Plug>(easymotion-n)
+let g:which_key_map[' '].n = 'n jump to search result'
+nmap <silent> <leader><leader>N <Plug>(easymotion-N)
+let g:which_key_map[' '].N = 'N jump to previous search result'
+
+nmap <silent> <leader>j <Plug>(easymotion-overwin-f)
+let g:which_key_map['j'] = 'jump to location'
+
 call which_key#register('<Space>', 'g:which_key_map')
 
 " CoC "
@@ -87,6 +126,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> <C-.> <Plug>(coc-codeaction)
 vmap <silent> <C-.> <Plug>(coc-codeaction)
 nnoremap <silent> gh :<C-u>call CocAction('doHover')<CR>
+
 
 " VISUAL "
 """"""""""

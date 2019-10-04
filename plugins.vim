@@ -38,6 +38,7 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#add('tpope/vim-commentary')
   call dein#add('tpope/vim-surround')
   call dein#add('liuchengxu/vim-which-key')
+  call dein#add('easymotion/vim-easymotion')
 
   " Typescript
   call dein#add('leafgarland/typescript-vim')
