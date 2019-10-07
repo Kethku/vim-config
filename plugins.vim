@@ -8,10 +8,7 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#add('vim-airline/vim-airline')
   call dein#add('vim-airline/vim-airline-themes')
   call dein#add('morhetz/gruvbox')
-  call dein#add('sickill/vim-monokai')
-  call dein#add('lifepillar/vim-solarized8')
   call dein#add('roman/golden-ratio')
-  call dein#add('airblade/vim-gitgutter')
   call dein#add('ryanoasis/vim-devicons')
   call dein#add('yuttie/comfortable-motion.vim')
   call dein#add('gcmt/taboo.vim')
@@ -23,7 +20,7 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#add('tpope/vim-obsession')
 
   " File Management
-  call dein#add('tpope/vim-vinegar')
+  call dein#add('c:/dev/Projects/vim-balsamic')
 
   " Completion
   call dein#add('neoclide/coc.nvim', { 'rev': 'release' })
@@ -31,8 +28,8 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#add('junegunn/fzf.vim')
 
   " Git
+  call dein#add('airblade/vim-gitgutter')
   call dein#add('tpope/vim-fugitive')
-  call dein#add('sodapopcan/vim-twiggy')
 
   " Key Bindings
   call dein#add('tpope/vim-commentary')
@@ -43,12 +40,6 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   " Typescript
   call dein#add('leafgarland/typescript-vim')
   call dein#add('ianks/vim-tsx')
-
-  " Powershell
-  call dein#add('PProvost/vim-ps1')
-
-  " Personal
-  call dein#add('c:/dev/Projects/vim-balsamic')
 
   " Cleanup
   call dein#end()

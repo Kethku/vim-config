@@ -163,4 +163,5 @@ nnoremap <silent> <up> :call comfortable_motion#flick(-100)<CR>
 " GENERAL "
 """""""""""
 
+nnoremap <silent> - :Balsamic<CR>
 nnoremap <ESC> :noh<CR>

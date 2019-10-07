@@ -29,6 +29,7 @@ let g:gruvbox_invert_selection = 1
 
 filetype plugin indent on
 
+set nonumber
 set termguicolors
 set mouse=a
 set expandtab
