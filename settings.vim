@@ -10,6 +10,9 @@ set guifont=Fira\ Code:h14
 set winblend=20
 set pumblend=20
 
+" disable netrw
+let loaded_netrwPlugin = 1
+
 " Airline
 let g:airline_powerline_fonts = 1
 let g:airline_section_z = '%3p%% %3l/%L:%3v'
@@ -38,3 +41,4 @@ set ignorecase
 set smartcase
 set clipboard=unnamed
 set timeoutlen=100
+set noshowmode 

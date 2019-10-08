@@ -105,16 +105,16 @@ nmap <silent> <leader><leader>ge <Plug>(easymotion-ge)
 let g:which_key_map[' '].g.e = 'ge jump backwards to end of word'
 nmap <silent> <leader><leader>gE <Plug>(easymotion-gE)
 let g:which_key_map[' '].g.E = 'gE jump backwards to end of WORD'
-nmap <silent> <leader><leader>j <Plug>(easymotion-j)
+nmap <silent> <leader><leader>j <plug>(easymotion-j)
 let g:which_key_map[' '].j = 'j jump down to line'
-nmap <silent> <leader><leader>k <Plug>(easymotion-k)
+nmap <silent> <leader><leader>k <plug>(easymotion-k)
 let g:which_key_map[' '].k = 'k jump up to line'
-nmap <silent> <leader><leader>n <Plug>(easymotion-n)
+nmap <silent> <leader><leader>n <plug>(easymotion-n)
 let g:which_key_map[' '].n = 'n jump to search result'
-nmap <silent> <leader><leader>N <Plug>(easymotion-N)
+nmap <silent> <leader><leader>N <plug>(easymotion-N)
 let g:which_key_map[' '].N = 'N jump to previous search result'
 
-nmap <silent> <leader>j <Plug>(easymotion-overwin-f)
+nmap <leader>j <plug>(easymotion-overwin-f)
 let g:which_key_map['j'] = 'jump to location'
 
 call which_key#register('<Space>', 'g:which_key_map')
@@ -131,9 +131,9 @@ nnoremap <silent> gh :<C-u>call CocAction('doHover')<CR>
 " VISUAL "
 """"""""""
 
-vnoremap < <gv
-vnoremap > >gv
-vnoremap ; :Commentary<CR>
+vnoremap <silent> < <gv
+vnoremap <silent> > >gv
+vnoremap <silent> ; :Commentary<CR>
 
 " Terminal "
 """"""""""""
@@ -152,7 +152,20 @@ vnoremap <silent> <C-Tab> :tabn<CR>
 vnoremap <silent> <C-S-Tab> :tabp<CR>
 tnoremap <silent> <C-Tab> <c-\><c-n>:tabn<CR>
 tnoremap <silent> <C-S-Tab> <c-\><c-n>:tabp<CR>
-au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+
+let g:previous_window = -1
+function SmartInsert()
+  if &buftype == 'terminal'
+    if g:previous_window != winnr()
+      startinsert
+    endif
+    let g:previous_window = winnr()
+  else
+    let g:previous_window = -1
+  endif
+endfunction
+
+au BufEnter * call SmartInsert()
 
 " Scrolling "
 """""""""""""
@@ -164,4 +177,4 @@ nnoremap <silent> <up> :call comfortable_motion#flick(-100)<CR>
 """""""""""
 
 nnoremap <silent> - :Balsamic<CR>
-nnoremap <ESC> :noh<CR>
+nnoremap <silent> <ESC> :noh<CR>
