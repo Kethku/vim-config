@@ -13,6 +13,7 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#add('yuttie/comfortable-motion.vim')
   call dein#add('gcmt/taboo.vim')
   call dein#add('tpope/vim-markdown')
+  call dein#add('wsdjeg/dein-ui.vim')
 
   " General Settings
   call dein#add('tpope/vim-sleuth')

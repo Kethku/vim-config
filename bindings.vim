@@ -10,9 +10,7 @@ let g:which_key_map = {}
 let g:which_key_map.v = { 'name' : '+vim' }
 nnoremap <silent> <leader>vr :source $MYVIMRC<CR>
 let g:which_key_map.v.r = 'reload config'
-nnoremap <silent> <leader>vi :source $MYVIMRC<CR>:call dein#install()<CR>
-let g:which_key_map.v.i = 'install plugins'
-nnoremap <silent> <leader>vu :source $MYVIMRC<CR>:call dein#update()<CR>
+nnoremap <silent> <leader>vu :source $MYVIMRC<CR>:DeinUpdate<CR>
 let g:which_key_map.v.u = 'update plugins'
 let g:which_key_map.v.e = { 'name' : '+edit' }
 nnoremap <silent> <leader>vei :e $MYVIMRC<CR>
@@ -133,6 +131,7 @@ nnoremap <silent> gh :<C-u>call CocAction('doHover')<CR>
 vnoremap <silent> < <gv
 vnoremap <silent> > >gv
 vnoremap <silent> ; :Commentary<CR>
+vnoremap <silent> <M-q> gq
 
 " Terminal "
 """"""""""""

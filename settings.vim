@@ -32,6 +32,9 @@ let g:gruvbox_invert_selection = 1
 
 filetype plugin indent on
 
+set guicursor=n-v-c:block-Cursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:ver100-iCursor
 set ve=block " All virtual text editing in block mode
 set nonumber " Don't show line numbers
 set termguicolors " Allow full color even in terminal
@@ -41,5 +44,6 @@ set hlsearch " Highlight words as I search them
 set ignorecase " ignore casing of my searches
 set smartcase
 set clipboard=unnamed
-set timeoutlen=100 " Set the timeout for bindings to 100 ms
-set noshowmode " Don't write the mode in the command line
+set timeoutlen=100
+set textwidth=120
+set noshowmode 
