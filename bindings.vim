@@ -127,7 +127,6 @@ nmap <silent> <C-.> <Plug>(coc-codeaction)
 vmap <silent> <C-.> <Plug>(coc-codeaction)
 nnoremap <silent> gh :<C-u>call CocAction('doHover')<CR>
 
-
 " VISUAL "
 """"""""""
 
@@ -139,7 +138,6 @@ vnoremap <silent> ; :Commentary<CR>
 """"""""""""
 
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
-
 
 " Tabs "
 """"""""
@@ -177,4 +175,4 @@ nnoremap <silent> <up> :call comfortable_motion#flick(-100)<CR>
 """""""""""
 
 nnoremap <silent> - :Balsamic<CR>
-nnoremap <silent> <ESC> :noh<CR>
+nmap <silent> <ESC> :noh<CR><Plug>(coc-float-hide)

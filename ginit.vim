@@ -9,6 +9,6 @@ if exists('g:fvim_loaded')
   FVimCursorSmoothBlink v:true
   FVimFontLineHeight '+1.0'
 
-  FVimBackgroundOpacity 0.8
+  FVimBackgroundOpacity 0.6
   FVimBackgroundComposition 'acrylic'
 endif
