@@ -69,8 +69,52 @@ let g:which_key_map.k = { 'name' : '+kill' }
 nnoremap <silent> <leader>kw :wq<CR>
 let g:which_key_map.k.w = 'kill window'
 
+let g:pwshBuf = 0
+let g:pwshWin = 0
+function! OpenTerminal()
+
+  let new = v:false
+  if !g:pwshBuf || !bufexists(g:pwshBuf)
+    let g:pwshBuf = nvim_create_buf(v:false, v:false)
+    let new = v:true
+  endif
+
+  echo &columns
+  let height = &lines - 5
+  let width = &columns - 10
+  let vertical = (&lines - height) / 2
+  let horizontal = (&columns - width) / 2
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'col': horizontal,
+        \ 'row': vertical,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+  let g:pwshWin = nvim_open_win(g:pwshBuf, v:true, opts)
+  if new
+    let oldShell = &shell
+    let &shell = 'pwsh'
+    terminal
+    set hidden
+    let &shell = oldShell
+  endif
+
+  call nvim_win_set_config(g:pwshWin, opts)
+  startinsert
+endfunction
+
+function! HideTerminal()
+  if g:pwshWin && bufexists(g:pwshBuf) && bufwinnr(g:pwshBuf) != -1
+    call nvim_win_close(g:pwshWin, v:true)
+    let g:pwshWin = 0
+  endif
+endfunction
+
+command! Term call OpenTerminal()
+
 let g:which_key_map.t = { 'name' : '+terminal' }
-nmap <silent> <leader>tt <Esc>:tabnew<CR>:TabooRename Terminal<CR>:edit term://pwsh<CR>
+nmap <silent> <leader>tt <Esc>:Term<CR>
 let g:which_key_map.t.t = 'new terminal tab'
 
 let g:which_key_map[';'] = { 'name' : '+commentary' }
@@ -113,7 +157,7 @@ nmap <silent> <leader><leader>N <plug>(easymotion-N)
 let g:which_key_map[' '].N = 'N jump to previous search result'
 
 nmap <leader>j <plug>(easymotion-overwin-f)
-let g:which_key_map['j'] = 'jump to location'
+let g:which_key_map['J'] = 'jump to location'
 
 call which_key#register('<Space>', 'g:which_key_map')
 
@@ -134,9 +178,9 @@ vnoremap <silent> ; :Commentary<CR>
 vnoremap <silent> <M-q> gq
 
 " Terminal "
-""""""""""""
+"""""""""""
 
-tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<C-\><C-n>"
 
 " Tabs "
 """"""""
@@ -151,7 +195,7 @@ tnoremap <silent> <C-Tab> <c-\><c-n>:tabn<CR>
 tnoremap <silent> <C-S-Tab> <c-\><c-n>:tabp<CR>
 
 let g:previous_window = -1
-function SmartInsert()
+function! SmartInsert()
   if &buftype == 'terminal'
     if g:previous_window != winnr()
       startinsert
@@ -174,4 +218,4 @@ nnoremap <silent> <up> :call comfortable_motion#flick(-100)<CR>
 """""""""""
 
 nnoremap <silent> - :Balsamic<CR>
-nmap <silent> <ESC> :noh<CR><Plug>(coc-float-hide)
+nmap <silent> <ESC> :noh<CR>:call HideTerminal()<CR><Plug>(coc-float-hide)
