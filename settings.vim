@@ -1,5 +1,5 @@
-let &t_AB="\e[48;5;%dm"
-let &t_AF="\e[38;5;%dm"
+let &t_AB='\e[48;5;%dm'
+let &t_AF='\e[38;5;%dm'
 
 set background=dark
 colorscheme gruvbox
@@ -18,6 +18,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_section_z = '%3p%% %3l/%L:%3v'
 let g:airline_left_sep = "\uE0B4"
 let g:airline_right_sep = "\uE0B6"
+let g:airline#extensions#coc#enabled = 1
 " Tabline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_tab_type = 0
@@ -26,9 +27,19 @@ let g:airline#extensions#tabline#buffers_label = 'B'
 let g:airline#extensions#tabline#tabs_label = 'T'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
+let g:airline_section_y = ''
+let g:airline_section_z = '%3l/%L:%3v'
+let g:airline_section_warning = ''
+let g:airline_section_error = ''
+
 let g:markdown_fenced_languages = ['javascript', 'typescript', 'js=javascript']
 
 let g:gruvbox_invert_selection = 1
+
+let g:golden_ratio_autocommand = 0
+
+let g:floaterm_winblend = 20
+let g:floaterm_position = 'center'
 
 filetype plugin indent on
 
@@ -46,4 +57,4 @@ set smartcase
 set clipboard=unnamed
 set timeoutlen=100
 set textwidth=120
-set noshowmode 
+set noshowmode

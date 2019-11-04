@@ -11,3 +11,5 @@ if exists('g:fvim_loaded')
   FVimBackgroundOpacity 0.6
   FVimBackgroundComposition 'acrylic'
 endif
+
+set fillchars+=vert:\|

@@ -10,8 +10,10 @@ let g:which_key_map = {}
 let g:which_key_map.v = { 'name' : '+vim' }
 nnoremap <silent> <leader>vr :source $MYVIMRC<CR>
 let g:which_key_map.v.r = 'reload config'
-nnoremap <silent> <leader>vu :source $MYVIMRC<CR>:DeinUpdate<CR>
+nnoremap <silent> <leader>vu :source $MYVIMRC<CR>:call dein#update()<CR>
 let g:which_key_map.v.u = 'update plugins'
+nnoremap <silent> <leader>vi :source $MYVIMRC<CR>:call dein#install()<CR>
+let g:which_key_map.v.i = 'install plugins'
 let g:which_key_map.v.e = { 'name' : '+edit' }
 nnoremap <silent> <leader>vei :e $MYVIMRC<CR>
 let g:which_key_map.v.e.i = 'init.vim'
@@ -44,6 +46,8 @@ nnoremap <silent> <leader>wi :split<CR><Esc>
 let g:which_key_map.w.i = 'split up'
 nnoremap <silent> <leader>wo :vsplit<CR><C-w>l<Esc>
 let g:which_key_map.w.o = 'split right'
+nmap <silent> <leader>w= <Plug>(golden_ratio_resize)
+let g:which_key_map.w['='] = 'auto resize'
 
 let g:which_key_map.b = { 'name' : '+buffer' }
 nnoremap <silent> <leader>bb :Buffers<CR>
@@ -69,53 +73,44 @@ let g:which_key_map.k = { 'name' : '+kill' }
 nnoremap <silent> <leader>kw :wq<CR>
 let g:which_key_map.k.w = 'kill window'
 
-let g:pwshBuf = 0
-let g:pwshWin = 0
-function! OpenTerminal()
-
-  let new = v:false
-  if !g:pwshBuf || !bufexists(g:pwshBuf)
-    let g:pwshBuf = nvim_create_buf(v:false, v:false)
-    let new = v:true
-  endif
-
-  echo &columns
-  let height = &lines - 5
-  let width = &columns - 10
-  let vertical = (&lines - height) / 2
-  let horizontal = (&columns - width) / 2
-  let opts = {
-        \ 'relative': 'editor',
-        \ 'col': horizontal,
-        \ 'row': vertical,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-  let g:pwshWin = nvim_open_win(g:pwshBuf, v:true, opts)
-  if new
-    let oldShell = &shell
-    let &shell = 'pwsh'
-    terminal
-    set hidden
-    let &shell = oldShell
-  endif
-
-  call nvim_win_set_config(g:pwshWin, opts)
-  startinsert
+function! SetupTerminal()
+  let g:floaterm_width = &columns - 20
+  let g:floaterm_height = &lines - 10
 endfunction
 
-function! HideTerminal()
-  if g:pwshWin && bufexists(g:pwshBuf) && bufwinnr(g:pwshBuf) != -1
-    call nvim_win_close(g:pwshWin, v:true)
-    let g:pwshWin = 0
-  endif
+function! ToggleTerminal()
+  call SetupTerminal()
+  set shell=pwsh
+  FloatermToggle
+  set shell=cmd
 endfunction
 
-command! Term call OpenTerminal()
+function! NewTerminal()
+  call SetupTerminal()
+  set shell=pwsh
+  FloatermNew
+  set shell=cmd
+endfunction
+
+function! NextTerminal()
+  call SetupTerminal()
+  FloatermNext
+endfunction
+
+function! PreviousTerminal()
+  call SetupTerminal()
+  FloatermPrev
+endfunction
 
 let g:which_key_map.t = { 'name' : '+terminal' }
-nmap <silent> <leader>tt <Esc>:Term<CR>
-let g:which_key_map.t.t = 'new terminal tab'
+nmap <silent> <leader>tt <Esc>:call ToggleTerminal()<CR>
+let g:which_key_map.t.t = 'Open Floating Terminal'
+nmap <silent> <leader>tn <Esc>:call NewTerminal()<CR>
+let g:which_key_map.t.n = 'New Floating Terminal'
+nmap <silent> <leader>tl <Esc>:call NextTerminal()<CR>
+let g:which_key_map.t.l = 'Next Floating Terminal'
+nmap <silent> <leader>th <Esc>:call PreviousTerminal()<CR>
+let g:which_key_map.t.h = 'Previous Floating Terminal'
 
 let g:which_key_map[';'] = { 'name' : '+commentary' }
 nnoremap <silent> <leader>;; :.Commentary<CR>
@@ -194,20 +189,6 @@ vnoremap <silent> <C-S-Tab> :tabp<CR>
 tnoremap <silent> <C-Tab> <c-\><c-n>:tabn<CR>
 tnoremap <silent> <C-S-Tab> <c-\><c-n>:tabp<CR>
 
-let g:previous_window = -1
-function! SmartInsert()
-  if &buftype == 'terminal'
-    if g:previous_window != winnr()
-      startinsert
-    endif
-    let g:previous_window = winnr()
-  else
-    let g:previous_window = -1
-  endif
-endfunction
-
-au BufEnter * call SmartInsert()
-
 " Scrolling "
 """""""""""""
 
@@ -216,6 +197,12 @@ nnoremap <silent> <up> :call comfortable_motion#flick(-100)<CR>
 
 " GENERAL "
 """""""""""
+
+function! HideTerminal()
+  if getbufvar(bufnr('%'), '&buftype') == 'terminal'
+    FloatermToggle
+  endif
+endfunction
 
 nnoremap <silent> - :Balsamic<CR>
 nmap <silent> <ESC> :noh<CR>:call HideTerminal()<CR><Plug>(coc-float-hide)
