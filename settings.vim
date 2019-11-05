@@ -27,7 +27,6 @@ let g:airline#extensions#tabline#buffers_label = 'B'
 let g:airline#extensions#tabline#tabs_label = 'T'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-let g:airline_section_y = ''
 let g:airline_section_z = '%3l/%L:%3v'
 let g:airline_section_warning = ''
 let g:airline_section_error = ''
@@ -58,3 +57,4 @@ set clipboard=unnamed
 set timeoutlen=100
 set textwidth=120
 set noshowmode
+set hidden

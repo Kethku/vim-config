@@ -20,7 +20,7 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#add('tpope/vim-endwise')
   call dein#add('tpope/vim-obsession')
   call dein#add('qpkorr/vim-bufkill')
-  call dein#add('voldikss/vim-floaterm', { 'rev': '6ffb68a' })
+  call dein#add('c:/dev/Projects/vim-floaterm')
 
   " File Management
   call dein#add('c:/dev/Projects/vim-balsamic')

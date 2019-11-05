@@ -1,3 +1,72 @@
+" Utils "
+"""""""""
+
+function! IsTerminalWindow(bufnumber)
+  return getbufvar(a:bufnumber, '&buftype') == 'terminal'
+        \ && getbufvar(a:bufnumber, 'floaterm_window') == 1
+endfunction
+
+function! FindTerminalWindow()
+  for winnr in range(1, winnr('$'))
+    if IsTerminalWindow(winbufnr(winnr))
+      return winnr
+    endif
+  endfor
+  return 0
+endfunction
+
+function! HideTerminal()
+  let winnr = FindTerminalWindow()
+  if winnr > 0
+    execute winnr . ' wincmd q'
+  endif
+endfunction
+
+function! SetupTerminal()
+  let g:floaterm_width = &columns - 10
+  let g:floaterm_height = &lines - 5
+endfunction
+
+function! ToggleTerminal()
+  call SetupTerminal()
+  set shell=pwsh
+  FloatermToggle
+  set shell=cmd
+endfunction
+
+function! NewTerminal()
+  call SetupTerminal()
+  set shell=pwsh
+  FloatermNew
+  set shell=cmd
+endfunction
+
+function! NextTerminal()
+  call SetupTerminal()
+  FloatermNext
+endfunction
+
+function! PreviousTerminal()
+  call SetupTerminal()
+  FloatermPrev
+endfunction
+
+function! SmartTabNext()
+  if IsTerminalWindow(bufnr('%'))
+    call NextTerminal()
+  else
+    tabn
+  endif
+endfunction
+
+function! SmartTabPrev()
+  if IsTerminalWindow(bufnr('%'))
+    call PreviousTerminal()
+  else
+    tabp
+  endif
+endfunction
+
 " LEADER "
 """"""""""
 
@@ -72,35 +141,6 @@ let g:which_key_map.f.f = 'format file'
 let g:which_key_map.k = { 'name' : '+kill' }
 nnoremap <silent> <leader>kw :wq<CR>
 let g:which_key_map.k.w = 'kill window'
-
-function! SetupTerminal()
-  let g:floaterm_width = &columns - 20
-  let g:floaterm_height = &lines - 10
-endfunction
-
-function! ToggleTerminal()
-  call SetupTerminal()
-  set shell=pwsh
-  FloatermToggle
-  set shell=cmd
-endfunction
-
-function! NewTerminal()
-  call SetupTerminal()
-  set shell=pwsh
-  FloatermNew
-  set shell=cmd
-endfunction
-
-function! NextTerminal()
-  call SetupTerminal()
-  FloatermNext
-endfunction
-
-function! PreviousTerminal()
-  call SetupTerminal()
-  FloatermPrev
-endfunction
 
 let g:which_key_map.t = { 'name' : '+terminal' }
 nmap <silent> <leader>tt <Esc>:call ToggleTerminal()<CR>
@@ -180,14 +220,14 @@ tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<C-\><C-n>"
 " Tabs "
 """"""""
 
-inoremap <silent> <C-Tab> <Esc>:tabn<CR>
-inoremap <silent> <C-S-Tab> <Esc>:tabp<CR>
-nnoremap <silent> <C-Tab> :tabn<CR>
-nnoremap <silent> <C-S-Tab> :tabp<CR>
-vnoremap <silent> <C-Tab> :tabn<CR>
-vnoremap <silent> <C-S-Tab> :tabp<CR>
-tnoremap <silent> <C-Tab> <c-\><c-n>:tabn<CR>
-tnoremap <silent> <C-S-Tab> <c-\><c-n>:tabp<CR>
+inoremap <silent> <C-Tab> <Esc>:call SmartTabNext()<CR>
+inoremap <silent> <C-S-Tab> <Esc>:call SmartTabPrev()<CR>
+nnoremap <silent> <C-Tab> :call SmartTabNext()<CR>
+nnoremap <silent> <C-S-Tab> :call SmartTabPrev()<CR>
+vnoremap <silent> <C-Tab> :call SmartTabNext()<CR>
+vnoremap <silent> <C-S-Tab> :call SmartTabPrev()<CR>
+tnoremap <silent> <C-Tab> <c-\><c-n>:call SmartTabNext()<CR>
+tnoremap <silent> <C-S-Tab> <c-\><c-n>:call SmartTabPrev()<CR>
 
 " Scrolling "
 """""""""""""
@@ -197,12 +237,6 @@ nnoremap <silent> <up> :call comfortable_motion#flick(-100)<CR>
 
 " GENERAL "
 """""""""""
-
-function! HideTerminal()
-  if getbufvar(bufnr('%'), '&buftype') == 'terminal'
-    FloatermToggle
-  endif
-endfunction
 
 nnoremap <silent> - :Balsamic<CR>
 nmap <silent> <ESC> :noh<CR>:call HideTerminal()<CR><Plug>(coc-float-hide)
