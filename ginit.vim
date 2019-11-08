@@ -12,4 +12,7 @@ if exists('g:fvim_loaded')
   FVimBackgroundComposition 'acrylic'
 endif
 
+GuiTabline 0
+GuiPopupmenu 0
+
 set fillchars+=vert:\|

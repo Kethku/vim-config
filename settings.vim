@@ -5,7 +5,7 @@ set background=dark
 colorscheme gruvbox
 let g:airline_theme='gruvbox'
 
-set guifont=Fira\ Code:h14
+set guifont=Delugia\ Nerd\ Font:h12
 
 set winblend=20
 set pumblend=20
@@ -40,9 +40,8 @@ let g:floaterm_position = 'center'
 
 filetype plugin indent on
 
-set guicursor=n-v-c:block-Cursor
-set guicursor+=n-v-c:blinkon0
-set guicursor+=i:ver100-iCursor
+" set guicursor=n-v-c:block-Cursor
+" set guicursor+=i:ver100-iCursor
 set ve=block " All virtual text editing in block mode
 set nonumber " Don't show line numbers
 set termguicolors " Allow full color even in terminal
