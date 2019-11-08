@@ -35,8 +35,6 @@ let g:markdown_fenced_languages = ['javascript', 'typescript', 'js=javascript']
 
 let g:gruvbox_invert_selection = 1
 
-let g:golden_ratio_autocommand = 0
-
 let g:floaterm_winblend = 20
 let g:floaterm_position = 'center'
 

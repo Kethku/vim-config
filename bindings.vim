@@ -129,6 +129,8 @@ nnoremap <silent> <leader>bk :bfirst<CR>
 let g:which_key_map.b.k = 'first'
 nnoremap <silent> <leader>bj :blast<CR>
 let g:which_key_map.b.j = 'last'
+nnoremap <silent> <leader>bd :BD<CR>
+let g:which_key_map.b.d = 'delete'
 
 let g:which_key_map.f = { 'name' : '+file' }
 nnoremap <silent> <leader>fr :History<CR>
