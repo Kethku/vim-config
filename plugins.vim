@@ -22,6 +22,7 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#add('qpkorr/vim-bufkill')
   call dein#add('voldikss/vim-floaterm')
   call dein#add('wellle/targets.vim')
+  call dein#add('glacambre/firenvim', { 'hook_post_update': function('firenvim#install') })
 
   " File Management
   call dein#add('c:/dev/Projects/vim-balsamic')
