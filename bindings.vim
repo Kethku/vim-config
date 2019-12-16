@@ -96,7 +96,7 @@ let g:which_key_map.v.e.s = 'settings.vim'
 let g:which_key_map.q = { 'name' : '+quit' }
 nnoremap <silent> <leader>qq :wqall<CR>
 let g:which_key_map.q.q = 'quit and save everything'
-nnoremap <silent> <leader>qr :Obsession ~/session.vim<CR>:!start nvim-qt -- -S ~/session.vim<CR><CR>:wqall<CR>
+nnoremap <silent> <leader>qr :Obsession ~/session.vim<CR>:!start neovide -S ~/session.vim<CR><CR>:wqall<CR>
 let g:which_key_map.q.q = 'quit and reload'
 
 let g:which_key_map.w = { 'name' : '+windows' }

@@ -33,6 +33,28 @@ let g:gruvbox_invert_selection = 1
 let g:floaterm_winblend = 20
 let g:floaterm_position = 'center'
 
+function! FloatingFZF()
+  let height = &lines
+  let width = float2nr(&columns - (&columns * 2 / 10))
+
+  let window_height = height / 3
+  let col = float2nr((&columns - width) / 2)
+  let col_offset = &columns / 10
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': height - window_height,
+        \ 'col': col + col_offset,
+        \ 'width': width * 2 / 1,
+        \ 'height': window_height,
+        \ 'style': 'minimal'
+        \ }
+  let buf = nvim_create_buf(v:false, v:true)
+  let win = nvim_open_win(buf, v:true, opts)
+  call setwinvar(win, '&winhl', 'NormalFloat:TabLine')
+endfunction
+
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
 filetype plugin indent on
 
 " set guicursor=n-v-c:block-Cursor
