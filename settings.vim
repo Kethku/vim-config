@@ -27,6 +27,7 @@ let g:airline#extensions#tabline#tabs_label = 'T'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 let g:markdown_fenced_languages = ['javascript', 'typescript', 'js=javascript']
+let g:vim_markdown_folding_disabled = 1
 
 let g:gruvbox_invert_selection = 1
 
@@ -72,3 +73,5 @@ set timeoutlen=100
 set textwidth=120
 set noshowmode
 set hidden
+set conceallevel=3
+set nowrap
