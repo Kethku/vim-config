@@ -243,3 +243,8 @@ nnoremap <silent> <up> :call comfortable_motion#flick(-100)<CR>
 
 nnoremap <silent> - :Balsamic<CR>
 nmap <silent> <ESC> :noh<CR>:call HideTerminal()<CR><Plug>(coc-float-hide)
+
+nmap <silent> fd <ESC>
+imap <silent> fd <ESC>
+tmap <silent> fd <ESC>
+cmap <silent> fd <ESC>
