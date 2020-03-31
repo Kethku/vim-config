@@ -34,6 +34,9 @@ let g:gruvbox_invert_selection = 1
 let g:floaterm_winblend = 20
 let g:floaterm_position = 'center'
 
+let g:neovide_cursor_animation_length = 0.08
+let g:neovide_refresh_rate = 144
+
 function! FloatingFZF()
   let height = &lines
   let width = float2nr(&columns - (&columns * 2 / 10))
