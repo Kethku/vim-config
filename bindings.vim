@@ -67,6 +67,14 @@ function! SmartTabPrev()
   endif
 endfunction
 
+function! Okeydokey(args)
+  silent execute "!pwsh -Command ok " . a:args
+endfunction
+
+command! -nargs=1 Ok call Okeydokey(<q-args>)
+command! -nargs=1 OkLoc call Okeydokey(<q-args> . " " . resolve("%:p") . " " . line(".") . " " . col("."))
+
+
 " LEADER "
 """"""""""
 
@@ -248,3 +256,4 @@ nmap <silent> fd <ESC>
 imap <silent> fd <ESC>
 tmap <silent> fd <ESC>
 cmap <silent> fd <ESC>
+vmap <silent> fd <ESC>

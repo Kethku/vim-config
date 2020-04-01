@@ -61,6 +61,8 @@ let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 filetype plugin indent on
 
+autocmd BufEnter * silent! lcd %:p:h
+
 " set guicursor=n-v-c:block-Cursor
 " set guicursor+=i:ver100-iCursor
 set ve=block " All virtual text editing in block mode
