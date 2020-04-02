@@ -9,7 +9,7 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#begin('~/AppData/Local/nvim/dein')
 
   " Aniseed
-  call dein#add('Olical/aniseed', { 'rev': ''})
+  call dein#add('Olical/aniseed', { 'rev': 'develop' })
   call dein#add('bakpakin/fennel.vim')
   call dein#add('guns/vim-sexp')
   call dein#add('tpope/vim-sexp-mappings-for-regular-people')

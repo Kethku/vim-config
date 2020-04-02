@@ -23,5 +23,8 @@ local core = _2_[1]
 local mapping = _2_[2]
 local util = _2_[3]
 do local _ = ({nil, _0_0, nil})[2] end
-require("dotfiles/module/bindings")
+local function _3_(path)
+  return require(string.gsub(path, ".*\\(.-)\\(.-)\\(.-)%.lua", "%1.%2.%3"))
+end
+core["run!"](_3_, util.glob((util["config-path"] .. "/lua/dotfiles/module/*.lua")))
 return mapping.init()

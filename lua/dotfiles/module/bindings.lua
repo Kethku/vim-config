@@ -42,6 +42,26 @@ do
   _0_0["aniseed/locals"]["noremap-silent"] = v_23_0_
   noremap_silent = v_23_0_
 end
+local declare_command = nil
+do
+  local v_23_0_ = nil
+  local function declare_command0(body)
+    return nvim.command(("command! " .. body))
+  end
+  v_23_0_ = declare_command0
+  _0_0["aniseed/locals"]["declare-command"] = v_23_0_
+  declare_command = v_23_0_
+end
+local declare_command_with_args = nil
+do
+  local v_23_0_ = nil
+  local function declare_command_with_args0(body)
+    return nvim.command(("command! -nargs=+ " .. body))
+  end
+  v_23_0_ = declare_command_with_args0
+  _0_0["aniseed/locals"]["declare-command-with-args"] = v_23_0_
+  declare_command_with_args = v_23_0_
+end
 local is_terminal_window = nil
 do
   local v_23_0_ = nil
@@ -167,4 +187,35 @@ do
   _0_0["aniseed/locals"]["previous-terminal"] = v_23_0_
   previous_terminal = v_23_0_
 end
-return nil
+local okeydokey = nil
+do
+  local v_23_0_ = nil
+  do
+    local v_23_0_0 = nil
+    local function okeydokey0(args)
+      return nvim.command(("!pwsh -Command ok " .. args))
+    end
+    v_23_0_0 = okeydokey0
+    _0_0["okeydokey"] = v_23_0_0
+    v_23_0_ = v_23_0_0
+  end
+  _0_0["aniseed/locals"]["okeydokey"] = v_23_0_
+  okeydokey = v_23_0_
+end
+local okeydokey_loc = nil
+do
+  local v_23_0_ = nil
+  do
+    local v_23_0_0 = nil
+    local function okeydokey_loc0(args)
+      return nvim.command(("!pwsh -Command ok " .. args .. nvim.ex.resolve("%:p") .. " " .. nvim.ex.line(".") .. " " .. nvim.ex.col(".")))
+    end
+    v_23_0_0 = okeydokey_loc0
+    _0_0["okeydokey-loc"] = v_23_0_0
+    v_23_0_ = v_23_0_0
+  end
+  _0_0["aniseed/locals"]["okeydokey-loc"] = v_23_0_
+  okeydokey_loc = v_23_0_
+end
+declare_command_with_args("Ok :lua okeydokey(<q-args>)")
+return declare_command_with_args("OkLoc :lua okeydokey-loc(<q-args>)")
