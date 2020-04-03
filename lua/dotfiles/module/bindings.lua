@@ -15,13 +15,34 @@ do
   _0_0 = module_23_0_
 end
 local function _1_(...)
-  _0_0["aniseed/local-fns"] = {require = {core = "aniseed.core", nvim = "aniseed.nvim"}}
-  return {require("aniseed.core"), require("aniseed.nvim")}
+  _0_0["aniseed/local-fns"] = {require = {core = "aniseed.core", nvim = "aniseed.nvim", util = "dotfiles.util"}}
+  return {require("aniseed.core"), require("aniseed.nvim"), require("dotfiles.util")}
 end
 local _2_ = _1_(...)
 local core = _2_[1]
 local nvim = _2_[2]
+local util = _2_[3]
 do local _ = ({nil, _0_0, nil})[2] end
+local map = nil
+do
+  local v_23_0_ = nil
+  local function map0(mode, from, to)
+    return nvim.set_keymap(mode, from, to, {})
+  end
+  v_23_0_ = map0
+  _0_0["aniseed/locals"]["map"] = v_23_0_
+  map = v_23_0_
+end
+local map_silent = nil
+do
+  local v_23_0_ = nil
+  local function map_silent0(mode, from, to)
+    return nvim.set_keymap(mode, from, to, {silent = true})
+  end
+  v_23_0_ = map_silent0
+  _0_0["aniseed/locals"]["map-silent"] = v_23_0_
+  map_silent = v_23_0_
+end
 local noremap = nil
 do
   local v_23_0_ = nil
@@ -62,11 +83,21 @@ do
   _0_0["aniseed/locals"]["declare-command-with-args"] = v_23_0_
   declare_command_with_args = v_23_0_
 end
+local is_terminal_buffer = nil
+do
+  local v_23_0_ = nil
+  local function is_terminal_buffer0(bufnumber)
+    return ((nvim.bo[bufnumber].buftype == "terminal") and (nvim.b[bufnumber].floaterm_window == 1))
+  end
+  v_23_0_ = is_terminal_buffer0
+  _0_0["aniseed/locals"]["is-terminal-buffer"] = v_23_0_
+  is_terminal_buffer = v_23_0_
+end
 local is_terminal_window = nil
 do
   local v_23_0_ = nil
-  local function is_terminal_window0(bufnumber)
-    return ((nvim.bo[bufnumber].buftype == "terminal") and (nvim.b[bufnumber].floaterm_window == 1))
+  local function is_terminal_window0(winnr)
+    return is_terminal_buffer(nvim.fn.winbufnr(winnr))
   end
   v_23_0_ = is_terminal_window0
   _0_0["aniseed/locals"]["is-terminal-window"] = v_23_0_
@@ -82,6 +113,7 @@ do
   _0_0["aniseed/locals"]["find-terminal-window"] = v_23_0_
   find_terminal_window = v_23_0_
 end
+util.export("find_terminal_window", find_terminal_window)
 local hide_terminal = nil
 do
   local v_23_0_ = nil
@@ -90,7 +122,7 @@ do
     local function hide_terminal0()
       local winnr = find_terminal_window()
       if (winnr > 0) then
-        return nvim.command((winnr .. "wincmd q"))
+        return nvim.command((winnr .. " wincmd q"))
       end
     end
     v_23_0_0 = hide_terminal0
@@ -100,6 +132,7 @@ do
   _0_0["aniseed/locals"]["hide-terminal"] = v_23_0_
   hide_terminal = v_23_0_
 end
+util.export("hide_terminal", hide_terminal)
 local setup_terminal = nil
 do
   local v_23_0_ = nil
@@ -136,6 +169,7 @@ do
   _0_0["aniseed/locals"]["toggle-terminal"] = v_23_0_
   toggle_terminal = v_23_0_
 end
+util.export("toggle_terminal", toggle_terminal)
 local new_terminal = nil
 do
   local v_23_0_ = nil
@@ -155,6 +189,7 @@ do
   _0_0["aniseed/locals"]["new-terminal"] = v_23_0_
   new_terminal = v_23_0_
 end
+util.export("new_terminal", new_terminal)
 local next_terminal = nil
 do
   local v_23_0_ = nil
@@ -171,6 +206,7 @@ do
   _0_0["aniseed/locals"]["next-terminal"] = v_23_0_
   next_terminal = v_23_0_
 end
+util.export("next_terminal", next_terminal)
 local previous_terminal = nil
 do
   local v_23_0_ = nil
@@ -187,6 +223,7 @@ do
   _0_0["aniseed/locals"]["previous-terminal"] = v_23_0_
   previous_terminal = v_23_0_
 end
+util.export("previous_terminal", previous_terminal)
 local okeydokey = nil
 do
   local v_23_0_ = nil
@@ -202,6 +239,7 @@ do
   _0_0["aniseed/locals"]["okeydokey"] = v_23_0_
   okeydokey = v_23_0_
 end
+util.export("okeydokey", okeydokey)
 local okeydokey_loc = nil
 do
   local v_23_0_ = nil
@@ -217,5 +255,133 @@ do
   _0_0["aniseed/locals"]["okeydokey-loc"] = v_23_0_
   okeydokey_loc = v_23_0_
 end
-declare_command_with_args("Ok :lua okeydokey(<q-args>)")
-return declare_command_with_args("OkLoc :lua okeydokey-loc(<q-args>)")
+util.export("okeydokey_loc", okeydokey_loc)
+declare_command_with_args("Ok call v:lua.g.okeydokey(<q-args>)")
+declare_command_with_args("OkLoc call v:lua.g.okeydokey_loc(<q-args>)")
+nvim.g.mapleader = " "
+noremap_silent("n", "<leader>", ":<c-u>WhichKey '<Space>'<CR>")
+noremap_silent("v", "<leader>", ":<c-u>WhichKeyVisual '<Space>'<CR>")
+which_key_map = {}
+local define_category = nil
+do
+  local v_23_0_ = nil
+  do
+    local v_23_0_0 = nil
+    local function define_category0(keys, documentation)
+      core["get-in"](which_key_map, core.butlast(keys), nil)[core.last(keys)] = {name = documentation}
+      return nil
+    end
+    v_23_0_0 = define_category0
+    _0_0["define-category"] = v_23_0_0
+    v_23_0_ = v_23_0_0
+  end
+  _0_0["aniseed/locals"]["define-category"] = v_23_0_
+  define_category = v_23_0_
+end
+local concat = nil
+do
+  local v_23_0_ = nil
+  local function concat0(a, b)
+    return (a .. b)
+  end
+  v_23_0_ = concat0
+  _0_0["aniseed/locals"]["concat"] = v_23_0_
+  concat = v_23_0_
+end
+local define_binding = nil
+do
+  local v_23_0_ = nil
+  do
+    local v_23_0_0 = nil
+    local function define_binding0(mode, keys, documentation, body)
+      core["get-in"](which_key_map, core.butlast(keys))[core.last(keys)] = documentation
+      return noremap_silent(mode, core.reduce(concat, "<leader>", keys), body)
+    end
+    v_23_0_0 = define_binding0
+    _0_0["define-binding"] = v_23_0_0
+    v_23_0_ = v_23_0_0
+  end
+  _0_0["aniseed/locals"]["define-binding"] = v_23_0_
+  define_binding = v_23_0_
+end
+define_category({"v"}, "+vim")
+define_binding("n", {"v", "r"}, "reload config", ":source $MYVIMRC<CR>")
+define_binding("n", {"v", "u"}, "update plugins", ":source $MYVIMRC<CR>:call dein#update()<CR>")
+define_binding("n", {"v", "i"}, "install plugins", ":source $MYVIMRC<CR>:call dein#install()<CR>")
+define_category({"v", "e"}, "+edit")
+define_binding("n", {"v", "e", "i"}, "init.fnl", ":e $MYVIMRC/../fnl/dotfiles/init.fnl<CR>")
+define_binding("n", {"v", "e", "b"}, "bindings.fnl", ":e $MYVIMRC/../fnl/dotfiles/module/bindings.fnl<CR>")
+define_binding("n", {"v", "e", "p"}, "init.vim (plugins)", ":e $MYVIMRC<CR>")
+define_binding("n", {"v", "e", "s"}, "settings", ":e $MYVIMRC/../fnl/dotfiles/module/settings.fnl<CR>")
+define_category({"q"}, "+quit")
+define_binding("n", {"q", "q"}, "quit and save everything", ":wqall<CR>")
+define_binding("n", {"q", "r"}, "quit and reload", ":Obsession ~/session.vim<CR>:!start neovide -S ~/session.vim<CR><CR>:wqall<CR>")
+define_category({"w"}, "+windows")
+define_binding("n", {"w", "h"}, "jump left", "<C-w>h")
+define_binding("n", {"w", "j"}, "jump down", "<C-w>j")
+define_binding("n", {"w", "k"}, "jump up", "<C-w>k")
+define_binding("n", {"w", "l"}, "jump right", "<C-w>l")
+define_binding("n", {"w", "y"}, "split left", ":vsplit<CR><ESC>")
+define_binding("n", {"w", "u"}, "split down", ":split<CR><C-w>j<ESC>")
+define_binding("n", {"w", "i"}, "split up", ":split<CR><ESC>")
+define_binding("n", {"w", "o"}, "split right", ":vsplit<CR><C-w>l<ESC>")
+define_binding("n", {"w", "="}, "auto resize", "<Plug>(golden_ratio_resize)")
+define_category({"b"}, "+buffers")
+define_binding("n", {"b", "b"}, "buffers", ":Buffers<CR>")
+define_binding("n", {"b", "h"}, "previous", ":bprevious<CR>")
+define_binding("n", {"b", "l"}, "next", ":bnext<CR>")
+define_binding("n", {"b", "k"}, "first", ":bfirst<CR>")
+define_binding("n", {"b", "j"}, "last", ":blast<CR>")
+define_binding("n", {"b", "d"}, "delete", ":BD<CR>")
+define_category({"f"}, "+file")
+define_binding("n", {"f", "r"}, "recent", ":History<CR>")
+define_binding("n", {"f", "s"}, "save", ":w<CR>")
+define_binding("n", {"f", "f"}, "format", ":CocCommand prettier.formatFile<CR>")
+define_category({"k"}, "+kill")
+define_binding("n", {"k", "w"}, "window", ":wq<CR>")
+define_category({"t"}, "+terminal")
+define_binding("n", {"t", "t"}, "Open Terminal", "<ESC>:call v:lua.g.toggle_terminal()<CR>")
+define_binding("n", {"t", "n"}, "New Terminal", "<ESC>:call v:lua.g.new_terminal()<CR>")
+define_binding("n", {"t", "l"}, "Next Terminal", "<ESC>:call v:lua.g.next_terminal()<CR>")
+define_binding("n", {"t", "h"}, "Previous Terminal", "<ESC>:call v:lua.g.previous_terminal()<CR>")
+define_category({";"}, "+commentary")
+define_binding("n", {";", ";"}, "current line", ":Commentary<CR>")
+define_category({" "}, "+easymotion")
+define_binding("n", {" ", "f"}, "character", "<Plug>(easymotion-f)")
+define_binding("n", {" ", "F"}, "backwards character", "<Plug>(easymotion-F)")
+define_binding("n", {" ", "t"}, "before character", "<Plug>(easymotion-t)")
+define_binding("n", {" ", "T"}, "backwards after character", "<Plug>(easymotion-T)")
+define_binding("n", {" ", "w"}, "word", "<Plug>(easymotion-w)")
+define_binding("n", {" ", "W"}, "WORD", "<Plug>(easymotion-W)")
+define_binding("n", {" ", "b"}, "backwards to word", "<Plug>(easymotion-b)")
+define_binding("n", {" ", "B"}, "backwards to WORD", "<Plug>(easymotion-B)")
+define_binding("n", {" ", "e"}, "end of word", "<Plug>(easymotion-e)")
+define_binding("n", {" ", "E"}, "end of WORD", "<Plug>(easymotion-E)")
+define_category({" ", "g"}, "+back")
+define_binding("n", {" ", "g", "e"}, "ge jump backwards to end of word", "<Plug>(easymotion-ge)")
+define_binding("n", {" ", "g", "E"}, "gE jump backwards to end of word", "<Plug>(easymotion-ge)")
+define_binding("n", {" ", "j"}, "down to line", "<Plug>(easymotion-j)")
+define_binding("n", {" ", "k"}, "up to line", "<Plug>(easymotion-k)")
+define_binding("n", {" ", "n"}, "jump to search result", "<Plug>(easymotion-n)")
+define_binding("n", {" ", "N"}, "jump to previous search result", "<Plug>(easymotion-N)")
+define_binding("n", {"J"}, "jump to location", "<plug>(easymotion-overwin-f)")
+nvim.g.which_key_map = which_key_map
+nvim.call_function("which_key#register", {"<Space>", "g:which_key_map"})
+map_silent("n", "gd", "<plug>(coc-definition)")
+map_silent("n", "<C-.>", "<plug>(coc-codeaction)")
+map_silent("v", "<C-.>", "<plug>(coc-codeaction)")
+noremap_silent("n", "gh", ":<C-u>call CocAction('doHover')<CR>")
+noremap_silent("v", "<", "<gv")
+noremap_silent("v", ">", ">gv")
+noremap_silent("v", ";", ":Commentary<CR>")
+noremap_silent("v", "<M-q>", "gq")
+nvim.set_keymap("t", "<ESC>", "(&filetype == \"fzf\") ? \"<Esc>\" : \"<C-\\><C-n>\"", {expr = true, noremap = true})
+noremap_silent("n", "<down>", ":call comfortable_motion#flick(100)<CR>")
+noremap_silent("n", "<up>", ":call comfortable_motion#flick(-100)<CR>")
+noremap_silent("n", "-", ":Balsamic<CR>")
+map_silent("n", "<ESC>", ":noh<CR>:call v:lua.g.hide_terminal()<CR><Plug>(coc-float-hide)")
+local function _3_(mode)
+  assert((nil ~= mode), ("Missing argument %s on %s:%s"):format("mode", "C:\\Users\\keith\\AppData\\Local\\nvim/fnl\\dotfiles\\module\\bindings.fnl", 221))
+  return map_silent(mode, "fd", "<Esc>")
+end
+return core["run!"](_3_, {"n", "i", "t", "c", "v"})

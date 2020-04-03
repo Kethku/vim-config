@@ -1,9 +1,18 @@
 (module dotfiles.module.bindings
   {require {nvim aniseed.nvim
-            core aniseed.core}})
+            core aniseed.core
+            util dotfiles.util}})
 
 ;; Utils ;;
 ;;;;;;;;;;;
+
+(defn- map [mode from to]
+  "Sets a mapping"
+  (nvim.set_keymap mode from to {}))
+
+(defn- map-silent [mode from to]
+  "Sets a mapping with {:silent true}"
+  (nvim.set_keymap mode from to {:silent true}))
 
 (defn- noremap [mode from to]
   "Sets a mapping with {:noremap true}"
@@ -19,20 +28,25 @@
 (defn- declare-command-with-args [body]
   (nvim.command (.. "command! -nargs=+ " body)))
 
-(defn- is-terminal-window [bufnumber]
+(defn- is-terminal-buffer [bufnumber]
   (and (= (. nvim.bo bufnumber "buftype") "terminal") 
        (= (. nvim.b bufnumber "floaterm_window") 1)))
+
+(defn- is-terminal-window [winnr]
+  (is-terminal-buffer (nvim.fn.winbufnr winnr)))
 
 (defn- find-terminal-window []
   (core.first 
     (core.filter 
-      is-terminal-window 
+      is-terminal-window
       (nvim.fn.range 1 (nvim.fn.winnr "$")))))
+(util.export :find_terminal_window find-terminal-window)
 
 (defn hide-terminal []
   (let [winnr (find-terminal-window)]
     (if (> winnr 0)
-      (nvim.command (.. winnr "wincmd q")))))
+      (nvim.command (.. winnr " wincmd q")))))
+(util.export :hide_terminal hide-terminal)
 
 (defn setup-terminal []
   (tset nvim.g "floaterm_width" (- (. nvim.o "columns") 10))
@@ -43,23 +57,28 @@
   (set nvim.o.shell "pwsh")
   (nvim.ex.FloatermToggle)
   (set nvim.o.shell "cmd"))
+(util.export :toggle_terminal toggle-terminal)
 
 (defn new-terminal []
   (setup-terminal)
   (set nvim.o.shell "pwsh")
   (nvim.ex.FloatermNew)
   (set nvim.o.shell "cmd"))
+(util.export :new_terminal new-terminal)
 
 (defn next-terminal []
   (setup-terminal)
   (nvim.ex.FloatermNext))
+(util.export :next_terminal next-terminal)
 
 (defn previous-terminal []
   (setup-terminal)
   (nvim.ex.FloatermPrev))
+(util.export :previous_terminal previous-terminal)
 
 (defn okeydokey [args]
   (nvim.command (.. "!pwsh -Command ok " args)))
+(util.export :okeydokey okeydokey)
 
 (defn okeydokey-loc [args]
   (nvim.command 
@@ -67,14 +86,15 @@
         (nvim.ex.resolve "%:p") " " 
         (nvim.ex.line ".") " " 
         (nvim.ex.col "."))))
+(util.export :okeydokey_loc okeydokey-loc)
 
-(declare-command-with-args "Ok :lua okeydokey(<q-args>)")
-(declare-command-with-args "OkLoc :lua okeydokey-loc(<q-args>)")
+(declare-command-with-args "Ok call v:lua.g.okeydokey(<q-args>)")
+(declare-command-with-args "OkLoc call v:lua.g.okeydokey_loc(<q-args>)")
 
 ;; LEADER ;;
 ;;;;;;;;;;;;
 
-(set nvim.g.mapleader "\\<Space>")
+(set nvim.g.mapleader " ")
 (noremap-silent :n :<leader> ":<c-u>WhichKey '<Space>'<CR>")
 (noremap-silent :v :<leader> ":<c-u>WhichKeyVisual '<Space>'<CR>")
 
@@ -111,7 +131,7 @@
 (define-binding :n [:w :y] "split left" ":vsplit<CR><ESC>")
 (define-binding :n [:w :u] "split down" ":split<CR><C-w>j<ESC>")
 (define-binding :n [:w :i] "split up" ":split<CR><ESC>")
-(define-binding :n [:w :o] "split right" "vsplit<CR><C-w>l<ESC>")
+(define-binding :n [:w :o] "split right" ":vsplit<CR><C-w>l<ESC>")
 (define-binding :n [:w :=] "auto resize" "<Plug>(golden_ratio_resize)")
 
 (define-category [:b] "+buffers")
@@ -131,53 +151,71 @@
 (define-binding :n [:k :w] "window" ":wq<CR>")
 
 (define-category [:t] "+terminal")
-(define-binding :n [:t :t] "Open Terminal" "<ESC>:call ")
+(define-binding :n [:t :t] "Open Terminal" "<ESC>:call v:lua.g.toggle_terminal()<CR>")
+(define-binding :n [:t :n] "New Terminal" "<ESC>:call v:lua.g.new_terminal()<CR>")
+(define-binding :n [:t :l] "Next Terminal" "<ESC>:call v:lua.g.next_terminal()<CR>")
+(define-binding :n [:t :h] "Previous Terminal" "<ESC>:call v:lua.g.previous_terminal()<CR>")
 
-let g:which_key_map.t = { 'name' : '+terminal' }
-nmap <silent> <leader>tt <Esc>:call ToggleTerminal()<CR>
-let g:which_key_map.t.t = 'Open Floating Terminal'
-nmap <silent> <leader>tn <Esc>:call NewTerminal()<CR>
-let g:which_key_map.t.n = 'New Floating Terminal'
-nmap <silent> <leader>tl <Esc>:call NextTerminal()<CR>
-let g:which_key_map.t.l = 'Next Floating Terminal'
-nmap <silent> <leader>th <Esc>:call PreviousTerminal()<CR>
-let g:which_key_map.t.h = 'Previous Floating Terminal'
+(define-category [";"] "+commentary")
+(define-binding :n [";" ";"] "current line" ":Commentary<CR>")
 
-let g:which_key_map[';'] = { 'name' : '+commentary' }
-nnoremap <silent> <leader>;; :.Commentary<CR>
-let g:which_key_map[';'][';'] = 'current line'
+(define-category [" "] "+easymotion")
+(define-binding :n [" " :f] "character" "<Plug>(easymotion-f)")
+(define-binding :n [" " :F] "backwards character" "<Plug>(easymotion-F)")
+(define-binding :n [" " :t] "before character" "<Plug>(easymotion-t)")
+(define-binding :n [" " :T] "backwards after character" "<Plug>(easymotion-T)")
+(define-binding :n [" " :w] "word" "<Plug>(easymotion-w)")
+(define-binding :n [" " :W] "WORD" "<Plug>(easymotion-W)")
+(define-binding :n [" " :b] "backwards to word" "<Plug>(easymotion-b)")
+(define-binding :n [" " :B] "backwards to WORD" "<Plug>(easymotion-B)")
+(define-binding :n [" " :e] "end of word" "<Plug>(easymotion-e)")
+(define-binding :n [" " :E] "end of WORD" "<Plug>(easymotion-E)")
+(define-category [" " "g"] "+back")
+(define-binding :n [" " :g :e] "ge jump backwards to end of word" "<Plug>(easymotion-ge)")
+(define-binding :n [" " :g :E] "gE jump backwards to end of word" "<Plug>(easymotion-ge)")
+(define-binding :n [" " :j] "down to line" "<Plug>(easymotion-j)")
+(define-binding :n [" " :k] "up to line" "<Plug>(easymotion-k)")
+(define-binding :n [" " :n] "jump to search result" "<Plug>(easymotion-n)")
+(define-binding :n [" " :N] "jump to previous search result" "<Plug>(easymotion-N)")
 
-let g:which_key_map[' '] = { 'name' : '+easymotion' }
-nmap <silent> <leader><leader>f <Plug>(easymotion-f)
-let g:which_key_map[' '].f = 'f{char} jump to character'
-nmap <silent> <leader><leader>F <Plug>(easymotion-F)
-let g:which_key_map[' '].F = 'F{char} jump backwards to character'
-nmap <silent> <leader><leader>t <Plug>(easymotion-t)
-let g:which_key_map[' '].t = 't{char} jump to before character'
-nmap <silent> <leader><leader>T <Plug>(easymotion-T)
-let g:which_key_map[' '].T = 'T{char} jump backwards to after character'
-nmap <silent> <leader><leader>w <Plug>(easymotion-w)
-let g:which_key_map[' '].w = 'w jump to word'
-nmap <silent> <leader><leader>W <Plug>(easymotion-W)
-let g:which_key_map[' '].W = 'W jump to WORD'
-nmap <silent> <leader><leader>b <Plug>(easymotion-b)
-let g:which_key_map[' '].b = 'b jump backwards to word'
-nmap <silent> <leader><leader>B <Plug>(easymotion-B)
-let g:which_key_map[' '].B = 'B jump backwards to WORD'
-nmap <silent> <leader><leader>e <Plug>(easymotion-e)
-let g:which_key_map[' '].e = 'e jump to end of word'
-nmap <silent> <leader><leader>E <Plug>(easymotion-E)
-let g:which_key_map[' '].E = 'E jump to end of WORD'
-let g:which_key_map[' '].g = { 'name' : '+back' }
-nmap <silent> <leader><leader>ge <Plug>(easymotion-ge)
-let g:which_key_map[' '].g.e = 'ge jump backwards to end of word'
-nmap <silent> <leader><leader>gE <Plug>(easymotion-gE)
-let g:which_key_map[' '].g.E = 'gE jump backwards to end of WORD'
-nmap <silent> <leader><leader>j <plug>(easymotion-j)
-let g:which_key_map[' '].j = 'j jump down to line'
-nmap <silent> <leader><leader>k <plug>(easymotion-k)
-let g:which_key_map[' '].k = 'k jump up to line'
-nmap <silent> <leader><leader>n <plug>(easymotion-n)
-let g:which_key_map[' '].n = 'n jump to search result'
-nmap <silent> <leader><leader>N <plug>(easymotion-N)
-let g:which_key_map[' '].N = 'N jump to previous search result'
+(define-binding :n [:J] "jump to location" "<plug>(easymotion-overwin-f)")
+
+(set nvim.g.which_key_map which_key_map)
+(nvim.call_function "which_key#register" ["<Space>" "g:which_key_map"])
+
+;; CoC ;;
+;;;;;;;;;
+
+(map-silent :n "gd" "<plug>(coc-definition)")
+(map-silent :n "<C-.>" "<plug>(coc-codeaction)")
+(map-silent :v "<C-.>" "<plug>(coc-codeaction)")
+(noremap-silent :n "gh" ":<C-u>call CocAction('doHover')<CR>")
+
+;; VISUAL ;;
+;;;;;;;;;;;;
+
+(noremap-silent :v "<" "<gv")
+(noremap-silent :v ">" ">gv")
+(noremap-silent :v ";" ":Commentary<CR>")
+(noremap-silent :v "<M-q>" "gq")
+
+;; TERMINAL ;;
+;;;;;;;;;;;;;;
+
+(nvim.set_keymap :t "<ESC>" "(&filetype == \"fzf\") ? \"<Esc>\" : \"<C-\\><C-n>\"" {:noremap true :expr true})
+
+;; SCROLLING ;;
+;;;;;;;;;;;;;;;
+
+(noremap-silent :n "<down>" ":call comfortable_motion#flick(100)<CR>")
+(noremap-silent :n "<up>" ":call comfortable_motion#flick(-100)<CR>")
+
+;; GENERAL ;;
+;;;;;;;;;;;;;
+
+(noremap-silent :n "-" ":Balsamic<CR>")
+(map-silent :n "<ESC>" ":noh<CR>:call v:lua.g.hide_terminal()<CR><Plug>(coc-float-hide)")
+
+(core.run! 
+  (lambda [mode] (map-silent mode "fd" "<Esc>")) 
+  [:n :i :t :c :v])
