@@ -44,7 +44,7 @@
 
 (defn hide-terminal []
   (let [winnr (find-terminal-window)]
-    (if (> winnr 0)
+    (if (not (core.nil? winnr))
       (nvim.command (.. winnr " wincmd q")))))
 (util.export :hide_terminal hide-terminal)
 

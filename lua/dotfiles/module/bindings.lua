@@ -121,7 +121,7 @@ do
     local v_23_0_0 = nil
     local function hide_terminal0()
       local winnr = find_terminal_window()
-      if (winnr > 0) then
+      if not core["nil?"](winnr) then
         return nvim.command((winnr .. " wincmd q"))
       end
     end
@@ -381,7 +381,7 @@ noremap_silent("n", "<up>", ":call comfortable_motion#flick(-100)<CR>")
 noremap_silent("n", "-", ":Balsamic<CR>")
 map_silent("n", "<ESC>", ":noh<CR>:call v:lua.g.hide_terminal()<CR><Plug>(coc-float-hide)")
 local function _3_(mode)
-  assert((nil ~= mode), ("Missing argument %s on %s:%s"):format("mode", "C:\\Users\\keith\\AppData\\Local\\nvim/fnl\\dotfiles\\module\\bindings.fnl", 221))
+  assert((nil ~= mode), ("Missing argument %s on %s:%s"):format("mode", "C:\\Users\\keithsim\\AppData\\Local\\nvim/fnl\\dotfiles\\module\\bindings.fnl", 221))
   return map_silent(mode, "fd", "<Esc>")
 end
 return core["run!"](_3_, {"n", "i", "t", "c", "v"})
