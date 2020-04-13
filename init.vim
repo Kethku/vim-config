@@ -62,6 +62,3 @@ if dein#load_state('~/AppData/Local/nvim/dein')
 end
 
 lua require('aniseed.dotfiles')
-
-runtime settings.vim
-runtime bindings.vim

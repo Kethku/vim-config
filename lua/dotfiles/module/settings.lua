@@ -15,12 +15,13 @@ do
   _0_0 = module_23_0_
 end
 local function _1_(...)
-  _0_0["aniseed/local-fns"] = {require = {core = "aniseed.core", nvim = "aniseed.nvim"}}
-  return {require("aniseed.core"), require("aniseed.nvim")}
+  _0_0["aniseed/local-fns"] = {require = {core = "aniseed.core", nvim = "aniseed.nvim", util = "dotfiles.util"}}
+  return {require("aniseed.core"), require("aniseed.nvim"), require("dotfiles.util")}
 end
 local _2_ = _1_(...)
 local core = _2_[1]
 local nvim = _2_[2]
+local util = _2_[3]
 do local _ = ({nil, _0_0, nil})[2] end
 nvim.command("colorscheme gruvbox")
 nvim.command("filetype plugin indent on")
@@ -55,13 +56,13 @@ do
       local columns = nvim.o.columns
       local height = nvim.o.lines
       local width = float2nr((columns - (columns * (2 / 10))))
-      local window_height = (height / 3)
+      local window_height = float2nr((height / 3))
       local col = float2nr(((columns - width) / 2))
       local col_offset = (columns / 10)
       local options = {col = (col + col_offset), height = window_height, relative = "editor", row = (height - window_height), style = "minimal", width = (width * 2)}
       local buf = nvim.create_buf(false, true)
       local win = nvim.open_win(buf, true, options)
-      nvim.o[win]["winhl"] = "NormalFloat:TabLine"
+      nvim.wo["winhl"] = "NormalFloat:TabLine"
       return nil
     end
     v_23_0_0 = floating_fzf0
@@ -71,7 +72,8 @@ do
   _0_0["aniseed/locals"]["floating-fzf"] = v_23_0_
   floating_fzf = v_23_0_
 end
-nvim.g.fzf_layout = {window = "lua floating-fzf()"}
+util.export("floating_fzf", floating_fzf)
+nvim.g.fzf_layout = {window = "call v:lua.g.floating_fzf()"}
 nvim.o.guifont = "Delugia\\ Nerd\\ Font:h12"
 nvim.o.winblend = 20
 nvim.o.pumblend = 20

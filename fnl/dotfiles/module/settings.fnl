@@ -1,6 +1,7 @@
 (module dotfiles.module.bindings
   {require {nvim aniseed.nvim
-            core aniseed.core}})
+            core aniseed.core
+            util dotfiles.util}})
 
 (nvim.command "colorscheme gruvbox")
 (nvim.command "filetype plugin indent on")
@@ -37,7 +38,7 @@
         columns nvim.o.columns
         height nvim.o.lines
         width (float2nr (- columns (* columns (/ 2 10))))
-        window_height (/ height 3)
+        window_height (float2nr (/ height 3))
         col (float2nr (/ (- columns width) 2))
         col_offset (/ columns 10)
         options {:relative "editor"
@@ -48,9 +49,10 @@
               :style "minimal"}
         buf (nvim.create_buf false true)
         win (nvim.open_win buf true options)]
-    (tset (. nvim.o win) :winhl "NormalFloat:TabLine")))
+    (tset nvim.wo :winhl "NormalFloat:TabLine")))
+(util.export :floating_fzf floating-fzf)
 
-(set nvim.g.fzf_layout {:window "lua floating-fzf()"})
+(set nvim.g.fzf_layout {:window "call v:lua.g.floating_fzf()"})
 
 (set nvim.o.guifont "Delugia\\ Nerd\\ Font:h12")
 (set nvim.o.winblend 20)
