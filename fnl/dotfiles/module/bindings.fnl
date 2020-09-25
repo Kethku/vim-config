@@ -95,6 +95,7 @@
 ;;;;;;;;;;;;
 
 (set nvim.g.mapleader " ")
+(set nvim.g.maplocalleader ",")
 (noremap-silent :n :<leader> ":<c-u>WhichKey '<Space>'<CR>")
 (noremap-silent :v :<leader> ":<c-u>WhichKeyVisual '<Space>'<CR>")
 

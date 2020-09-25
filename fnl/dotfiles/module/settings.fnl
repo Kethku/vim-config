@@ -1,7 +1,8 @@
 (module dotfiles.module.bindings
-  {require {nvim aniseed.nvim
-            core aniseed.core
-            util dotfiles.util}})
+  {require {nvim     aniseed.nvim
+            core     aniseed.core
+            util     dotfiles.util
+            bindings dotfiles.module.bindings}})
 
 (nvim.command "colorscheme gruvbox")
 (nvim.command "filetype plugin indent on")
@@ -31,7 +32,7 @@
 (set nvim.g.floaterm_position "center")
 
 (set nvim.g.neovide_cursor_animation_length 0.08)
-(set nvim.g.neovide_refresh_rate 144)
+(set nvim.g.neovide_refresh_rate 60)
 
 (defn floating-fzf []
   (let [float2nr nvim.fn.float2nr
@@ -54,7 +55,7 @@
 
 (set nvim.g.fzf_layout {:window "call v:lua.g.floating_fzf()"})
 
-(set nvim.o.guifont "Delugia\\ Nerd\\ Font:h12")
+(set nvim.o.guifont "Delugia Nerd Font:h12")
 (set nvim.o.winblend 20)
 (set nvim.o.pumblend 20)
 (set nvim.o.ve "block")
