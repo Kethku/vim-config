@@ -1,5 +1,6 @@
 (module dotfiles.init
-  {require {core aniseed.core
+  {require {nvim aniseed.nvim
+            core aniseed.core
             util dotfiles.util}})
 
 (->> (util.glob (.. util.config-path "/lua/dotfiles/module/*.lua"))

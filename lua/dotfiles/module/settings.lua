@@ -14,16 +14,27 @@ do
   package.loaded[name_0_] = module_0_
   _0_0 = module_0_
 end
-local function _1_(...)
-  _0_0["aniseed/local-fns"] = {require = {bindings = "dotfiles.module.bindings", core = "aniseed.core", nvim = "aniseed.nvim", util = "dotfiles.util"}}
-  return {require("dotfiles.module.bindings"), require("aniseed.core"), require("aniseed.nvim"), require("dotfiles.util")}
+local function _2_(...)
+  local ok_3f_0_, val_0_ = nil, nil
+  local function _2_()
+    return {require("dotfiles.module.bindings"), require("aniseed.core"), require("aniseed.nvim"), require("dotfiles.util")}
+  end
+  ok_3f_0_, val_0_ = pcall(_2_)
+  if ok_3f_0_ then
+    _0_0["aniseed/local-fns"] = {require = {bindings = "dotfiles.module.bindings", core = "aniseed.core", nvim = "aniseed.nvim", util = "dotfiles.util"}}
+    return val_0_
+  else
+    return print(val_0_)
+  end
 end
-local _2_ = _1_(...)
-local bindings = _2_[1]
-local core = _2_[2]
-local nvim = _2_[3]
-local util = _2_[4]
-do local _ = ({nil, _0_0, {{}, nil}})[2] end
+local _1_ = _2_(...)
+local bindings = _1_[1]
+local core = _1_[2]
+local nvim = _1_[3]
+local util = _1_[4]
+local _2amodule_2a = _0_0
+local _2amodule_name_2a = "dotfiles.module.bindings"
+do local _ = ({nil, _0_0, {{}, nil, nil, nil}})[2] end
 nvim.command("colorscheme gruvbox")
 nvim.command("filetype plugin indent on")
 nvim.command("autocmd BufEnter * silent! lcd &:p:h")
@@ -46,7 +57,7 @@ nvim.g.gruvbox_invert_selection = 1
 nvim.g.floaterm_winblend = 20
 nvim.g.floaterm_position = "center"
 nvim.g.neovide_cursor_animation_length = 0.080000000000000002
-nvim.g.neovide_refresh_rate = 60
+nvim.g.neovide_refresh_rate = 150
 local floating_fzf = nil
 do
   local v_0_ = nil

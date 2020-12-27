@@ -14,14 +14,26 @@ do
   package.loaded[name_0_] = module_0_
   _0_0 = module_0_
 end
-local function _1_(...)
-  _0_0["aniseed/local-fns"] = {require = {core = "aniseed.core", util = "dotfiles.util"}}
-  return {require("aniseed.core"), require("dotfiles.util")}
+local function _2_(...)
+  local ok_3f_0_, val_0_ = nil, nil
+  local function _2_()
+    return {require("aniseed.core"), require("aniseed.nvim"), require("dotfiles.util")}
+  end
+  ok_3f_0_, val_0_ = pcall(_2_)
+  if ok_3f_0_ then
+    _0_0["aniseed/local-fns"] = {require = {core = "aniseed.core", nvim = "aniseed.nvim", util = "dotfiles.util"}}
+    return val_0_
+  else
+    return print(val_0_)
+  end
 end
-local _2_ = _1_(...)
-local core = _2_[1]
-local util = _2_[2]
-do local _ = ({nil, _0_0, {{}, nil}})[2] end
+local _1_ = _2_(...)
+local core = _1_[1]
+local nvim = _1_[2]
+local util = _1_[3]
+local _2amodule_2a = _0_0
+local _2amodule_name_2a = "dotfiles.init"
+do local _ = ({nil, _0_0, {{}, nil, nil, nil}})[2] end
 local function _3_(path)
   return require(string.gsub(path, ".*\\(.-)\\(.-)\\(.-)%.lua", "%1.%2.%3"))
 end

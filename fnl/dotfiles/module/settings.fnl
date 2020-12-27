@@ -32,7 +32,7 @@
 (set nvim.g.floaterm_position "center")
 
 (set nvim.g.neovide_cursor_animation_length 0.08)
-(set nvim.g.neovide_refresh_rate 60)
+(set nvim.g.neovide_refresh_rate 150)
 
 (defn floating-fzf []
   (let [float2nr nvim.fn.float2nr
