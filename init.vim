@@ -2,11 +2,14 @@ if &compatible
   set nocompatible
 endif
 
-" Setup
-set runtimepath+=~/AppData/Local/nvim/dein/repos/github.com/Shougo/dein.vim
+let s:path = expand('<sfile>:p:h')
+let g:aniseed#env = v:true
 
-if dein#load_state('~/AppData/Local/nvim/dein')
-  call dein#begin('~/AppData/Local/nvim/dein')
+" Setup
+exe 'set runtimepath+=' . s:path . '/dein/repos/github.com/Shougo/dein.vim'
+
+if dein#load_state(s:path . '/dein')
+  call dein#begin(s:path . '/dein')
 
   " Aniseed
   call dein#add('Olical/aniseed', { 'rev': 'develop' })
@@ -61,5 +64,3 @@ if dein#load_state('~/AppData/Local/nvim/dein')
   call dein#end()
   call dein#save_state()
 end
-
-lua require('aniseed.dotfiles')

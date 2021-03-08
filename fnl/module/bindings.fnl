@@ -1,7 +1,7 @@
-(module dotfiles.module.bindings
+(module module.bindings
   {require {nvim aniseed.nvim
             core aniseed.core
-            util dotfiles.util}})
+            util util}})
 
 ;; Utils ;;
 ;;;;;;;;;;;
