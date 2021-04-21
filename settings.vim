@@ -2,8 +2,6 @@ set background=dark
 colorscheme gruvbox
 let g:airline_theme='gruvbox'
 
-set guifont=Delugia\ Nerd\ Font:h12
-
 set winblend=20
 set pumblend=20
 
@@ -67,8 +65,10 @@ set expandtab " Always use spaces instead of tabs
 set hlsearch " Highlight words as I search them
 set ignorecase " ignore casing of my searches
 set smartcase
+set nolazyredraw
 set clipboard=unnamed
 set timeoutlen=100
 set textwidth=120
 set noshowmode
 set hidden
+set nowrap
