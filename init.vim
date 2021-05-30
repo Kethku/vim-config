@@ -21,6 +21,7 @@ if dein#load_state(s:path . '/dein')
   " Appearance
   call dein#add('vim-airline/vim-airline')
   call dein#add('vim-airline/vim-airline-themes')
+  call dein#add('akinsho/nvim-bufferline.lua')
   call dein#add('morhetz/gruvbox')
   call dein#add('kethku/golden-ratio')
   call dein#add('ryanoasis/vim-devicons')
@@ -42,7 +43,7 @@ if dein#load_state(s:path . '/dein')
   call dein#add('c:/dev/Projects/vim-balsamic')
 
   " Completion
-  call dein#add('neoclide/coc.nvim', { 'rev': 'release' })
+  call dein#add('neovim/nvim-lspconfig')
   call dein#add('junegunn/fzf', { 'merged': 0 })
   call dein#add('junegunn/fzf.vim')
 

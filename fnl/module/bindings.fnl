@@ -115,10 +115,10 @@
 (define-binding :n [:v :u] "update plugins" ":source $MYVIMRC<CR>:call dein#update()<CR>")
 (define-binding :n [:v :i] "install plugins" ":source $MYVIMRC<CR>:call dein#install()<CR>")
 (define-category [:v :e] "+edit")
-(define-binding :n [:v :e :i] "init.fnl" ":e $MYVIMRC/../fnl/dotfiles/init.fnl<CR>")
-(define-binding :n [:v :e :b] "bindings.fnl" ":e $MYVIMRC/../fnl/dotfiles/module/bindings.fnl<CR>")
+(define-binding :n [:v :e :i] "init.fnl" ":e $MYVIMRC/../fnl/init.fnl<CR>")
+(define-binding :n [:v :e :b] "bindings.fnl" ":e $MYVIMRC/../fnl/module/bindings.fnl<CR>")
 (define-binding :n [:v :e :p] "init.vim (plugins)" ":e $MYVIMRC<CR>")
-(define-binding :n [:v :e :s] "settings" ":e $MYVIMRC/../fnl/dotfiles/module/settings.fnl<CR>")
+(define-binding :n [:v :e :s] "settings" ":e $MYVIMRC/../fnl/module/settings.fnl<CR>")
 
 (define-category [:q] "+quit")
 (define-binding :n [:q :q] "quit and save everything" ":wqall<CR>")

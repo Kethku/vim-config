@@ -29,7 +29,6 @@
 (set vim.g.floaterm_winblend 20)
 (set vim.g.floaterm_position "center")
 
-(set vim.g.neovide_cursor_animation_length 0.08)
 (set vim.g.neovide_refresh_rate 150)
 
 (set vim.o.guifont "Delugia Nerd Font:h12")
