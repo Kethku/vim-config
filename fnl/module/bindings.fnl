@@ -111,13 +111,14 @@
   (noremap-silent mode (core.reduce concat "<leader>" keys) body))
 
 (define-category [:v] "+vim")
-(define-binding :n [:v :r] "reload config" ":source $MYVIMRC<CR>")
-(define-binding :n [:v :u] "update plugins" ":source $MYVIMRC<CR>:call dein#update()<CR>")
-(define-binding :n [:v :i] "install plugins" ":source $MYVIMRC<CR>:call dein#install()<CR>")
+(define-binding :n [:v :i] "install" ":luafile $MYVIMRC<CR>:PaqInstall<CR>")
+(define-binding :n [:v :u] "update" ":luafile $MYVIMRC<CR>:PaqUpdate<CR>")
+(define-binding :n [:v :c] "clean unused" ":luafile $MYVIMRC<CR>:PaqClean<CR>")
 (define-category [:v :e] "+edit")
+(define-binding :n [:v :e :B] "init.lua (bootstrap)" ":e $MYVIMRC<CR>")
 (define-binding :n [:v :e :i] "init.fnl" ":e $MYVIMRC/../fnl/init.fnl<CR>")
 (define-binding :n [:v :e :b] "bindings.fnl" ":e $MYVIMRC/../fnl/module/bindings.fnl<CR>")
-(define-binding :n [:v :e :p] "init.vim (plugins)" ":e $MYVIMRC<CR>")
+(define-binding :n [:v :e :p] "plugins.fnl" ":e $MYVIMRC/../fnl/module/plugins.fnl<CR>")
 (define-binding :n [:v :e :s] "settings" ":e $MYVIMRC/../fnl/module/settings.fnl<CR>")
 
 (define-category [:q] "+quit")
@@ -144,9 +145,8 @@
 (define-binding :n [:b :d] "delete" ":BD<CR>")
 
 (define-category [:f] "+file")
-(define-binding :n [:f :r] "recent" ":History<CR>")
+(define-binding :n [:f :r] "recent" ":lua require'telescope.builtin'.oldfiles{}<CR>")
 (define-binding :n [:f :s] "save" ":w<CR>")
-(define-binding :n [:f :f] "format" ":CocCommand prettier.formatFile<CR>")
 
 (define-category [:k] "+kill")
 (define-binding :n [:k :w] "window" ":wq<CR>")
@@ -160,37 +160,16 @@
 (define-category [";"] "+commentary")
 (define-binding :n [";" ";"] "current line" ":Commentary<CR>")
 
-(define-category [" "] "+easymotion")
-(define-binding :n [" " :f] "character" "<Plug>(easymotion-f)")
-(define-binding :n [" " :F] "backwards character" "<Plug>(easymotion-F)")
-(define-binding :n [" " :t] "before character" "<Plug>(easymotion-t)")
-(define-binding :n [" " :T] "backwards after character" "<Plug>(easymotion-T)")
-(define-binding :n [" " :w] "word" "<Plug>(easymotion-w)")
-(define-binding :n [" " :W] "WORD" "<Plug>(easymotion-W)")
-(define-binding :n [" " :b] "backwards to word" "<Plug>(easymotion-b)")
-(define-binding :n [" " :B] "backwards to WORD" "<Plug>(easymotion-B)")
-(define-binding :n [" " :e] "end of word" "<Plug>(easymotion-e)")
-(define-binding :n [" " :E] "end of WORD" "<Plug>(easymotion-E)")
-(define-category [" " "g"] "+back")
-(define-binding :n [" " :g :e] "ge jump backwards to end of word" "<Plug>(easymotion-ge)")
-(define-binding :n [" " :g :E] "gE jump backwards to end of word" "<Plug>(easymotion-ge)")
-(define-binding :n [" " :j] "down to line" "<Plug>(easymotion-j)")
-(define-binding :n [" " :k] "up to line" "<Plug>(easymotion-k)")
-(define-binding :n [" " :n] "jump to search result" "<Plug>(easymotion-n)")
-(define-binding :n [" " :N] "jump to previous search result" "<Plug>(easymotion-N)")
-
-(define-binding :n [:J] "jump to location" "<plug>(easymotion-overwin-f)")
-
 (set nvim.g.which_key_map which_key_map)
 (nvim.call_function "which_key#register" ["<Space>" "g:which_key_map"])
 
-;; CoC ;;
-;;;;;;;;;
+;;  LSP  ;;
+;;;;;;;;;;;
 
-(map-silent :n "gd" "<plug>(coc-definition)")
-(map-silent :n "<C-.>" "<plug>(coc-codeaction)")
-(map-silent :v "<C-.>" "<plug>(coc-codeaction)")
-(noremap-silent :n "gh" ":<C-u>call CocAction('doHover')<CR>")
+(noremap-silent :n "gh" ":lua vim.lsp.buf.hover()<CR>")
+(noremap-silent :n "gd" ":lua vim.lsp.buf.definition()<CR>")
+(map-silent :n "<C-.>" ":lua vim.lsp.buf.code_action()<CR>")
+(map-silent :v "<C-.>" ":lua vim.lsp.buf.code_action()<CR>")
 
 ;; VISUAL ;;
 ;;;;;;;;;;;;
@@ -203,7 +182,7 @@
 ;; TERMINAL ;;
 ;;;;;;;;;;;;;;
 
-(nvim.set_keymap :t "<ESC>" "(&filetype == \"fzf\") ? \"<Esc>\" : \"<C-\\><C-n>\"" {:noremap true :expr true})
+(noremap-silent :t "<ESC>" "<C-\\><C-n>")
 
 ;; SCROLLING ;;
 ;;;;;;;;;;;;;;;
@@ -215,8 +194,8 @@
 ;;;;;;;;;;;;;
 
 (noremap-silent :n "-" ":Balsamic<CR>")
-(map-silent :n "<ESC>" ":noh<CR>:call v:lua.g.hide_terminal()<CR><Plug>(coc-float-hide)")
+(map-silent :n "<ESC>" ":noh<CR>:call v:lua.g.hide_terminal()<CR>")
 
 (core.run! 
-  (lambda [mode] (map-silent mode "fd" "<Esc>")) 
+  (lambda [mode] (map-silent mode "fd" "<Esc>"))
   [:n :i :t :c :v])

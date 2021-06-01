@@ -6,6 +6,7 @@
 (vim.cmd "filetype plugin indent on")
 (vim.cmd "autocmd BufEnter * silent! lcd &:p:h")
 
+; Airline
 (set vim.g.airline_powerline_fonts 1)
 (set vim.g.airline_section_z "%3l/%L:%3v")
 (set vim.g.airline_left_sep "")
@@ -31,7 +32,7 @@
 
 (set vim.g.neovide_refresh_rate 150)
 
-(set vim.o.guifont "Delugia Nerd Font:h12")
+(set vim.o.guifont "Delugia Nerd Font,Segoe UI Emoji,Microsoft YaHei:h12")
 (set vim.o.winblend 20)
 (set vim.o.pumblend 20)
 (set vim.o.ve "block")

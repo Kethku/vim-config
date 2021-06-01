@@ -1,5 +1,5 @@
 (module init
-  {require {nvim     aniseed.nvim
-            core     aniseed.core
+  {require {plugins  module.plugins
+            settings module.settings
             bindings module.bindings
-	    settings module.settings}})
+            lsp      module.lsp}})
