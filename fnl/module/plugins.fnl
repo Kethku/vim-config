@@ -20,7 +20,7 @@
 (paq "kethku/golden-ratio")
 
 ;; File Management
-(paq "c:/dev/Projects/vim-balsamic")
+;; (paq "c:/dev/Projects/vim-balsamic")
 
 ;; Completion
 (paq "nvim-treesitter/nvim-treesitter")
@@ -28,7 +28,7 @@
 (paq "nvim-lua/popup.nvim")
 (paq "nvim-lua/plenary.nvim")
 (paq "nvim-telescope/telescope.nvim")
-(paq "hrsh7th/nvim-compe")
+(paq "kethku/nvim-compe")
 (paq "Olical/conjure")
 (paq "tami5/compe-conjure")
 

@@ -32,7 +32,7 @@
 
 (set vim.g.neovide_refresh_rate 150)
 
-(set vim.o.guifont "Delugia Nerd Font,Segoe UI Emoji,Microsoft YaHei:h12")
+(set vim.o.guifont "Cascadia Code PL,Delugia Nerd Font:h11")
 (set vim.o.winblend 20)
 (set vim.o.pumblend 20)
 (set vim.o.ve "block")

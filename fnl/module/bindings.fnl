@@ -161,7 +161,8 @@
 (define-binding :n [";" ";"] "current line" ":Commentary<CR>")
 
 (set nvim.g.which_key_map which_key_map)
-(nvim.call_function "which_key#register" ["<Space>" "g:which_key_map"])
+
+;; (nvim.call_function "which_key#register" ["<Space>" "g:which_key_map"])
 
 ;;  LSP  ;;
 ;;;;;;;;;;;
