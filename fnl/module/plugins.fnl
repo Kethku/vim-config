@@ -23,7 +23,6 @@
 ;; (paq "c:/dev/Projects/vim-balsamic")
 
 ;; Completion
-(paq "nvim-treesitter/nvim-treesitter")
 (paq "neovim/nvim-lspconfig")
 (paq "nvim-lua/popup.nvim")
 (paq "nvim-lua/plenary.nvim")
@@ -34,7 +33,6 @@
 
 ;; Git
 (paq "airblade/vim-gitgutter")
-(paq "tpope/vim-fugitive")
 
 ;; Key Bindings
 (paq "tpope/vim-commentary")

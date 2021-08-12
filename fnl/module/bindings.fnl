@@ -119,7 +119,8 @@
 (define-binding :n [:v :e :i] "init.fnl" ":e $MYVIMRC/../fnl/init.fnl<CR>")
 (define-binding :n [:v :e :b] "bindings.fnl" ":e $MYVIMRC/../fnl/module/bindings.fnl<CR>")
 (define-binding :n [:v :e :p] "plugins.fnl" ":e $MYVIMRC/../fnl/module/plugins.fnl<CR>")
-(define-binding :n [:v :e :s] "settings" ":e $MYVIMRC/../fnl/module/settings.fnl<CR>")
+(define-binding :n [:v :e :s] "settings.fnl" ":e $MYVIMRC/../fnl/module/settings.fnl<CR>")
+(define-binding :n [:v :e :l] "lsp.fnl" ":e $MYVIMRC/../fnl/module/lsp.fnl<CR>")
 
 (define-category [:q] "+quit")
 (define-binding :n [:q :q] "quit and save everything" ":wqall<CR>")
