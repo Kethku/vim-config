@@ -23,3 +23,9 @@
 (defn safe-equal [x y] (and (= (type x) (type y)) (= x y)))
 
 (defn safe-not-equal [x y] (or (not= (type x) (type y)) (not= x y)))
+
+(defn safe-require [name]
+  (let [(ok? val-or-err) (pcall require name)]
+    (when (not ok?)
+      (print (.. "Plugin error from " name ": " val-or-err)))))
+

@@ -9,6 +9,8 @@
 (paq "vim-airline/vim-airline-themes")
 (paq "morhetz/gruvbox")
 (paq "ryanoasis/vim-devicons")
+(paq "kyazdani42/nvim-web-devicons")
+(paq "romgrk/barbar.nvim")
 
 ;; General Settings
 (paq "tpope/vim-sleuth")
@@ -22,13 +24,15 @@
 ;; File Management
 ;; (paq "c:/dev/Projects/vim-balsamic")
 
-;; Completion
+;; LSP
 (paq "neovim/nvim-lspconfig")
+
+;; Completion
 (paq "nvim-lua/popup.nvim")
 (paq "nvim-lua/plenary.nvim")
 (paq "nvim-telescope/telescope.nvim")
-(paq "kethku/nvim-compe")
 (paq "Olical/conjure")
+(paq "ms-jpq/coq_nvim")
 (paq "tami5/compe-conjure")
 
 ;; Git

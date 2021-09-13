@@ -1,5 +1,9 @@
 (module init
-  {require {plugins  module.plugins
-            settings module.settings
-            bindings module.bindings
-            lsp      module.lsp}})
+  {require {util util}})
+
+(def req util.safe-require)
+
+(req "module.plugins")
+(req "module.settings")
+(req "module.bindings")
+(req "module.lsp")
