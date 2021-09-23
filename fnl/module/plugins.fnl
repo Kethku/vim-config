@@ -41,4 +41,5 @@
 ;; Key Bindings
 (paq "tpope/vim-commentary")
 (paq "tpope/vim-surround")
-(paq "liuchengxu/vim-which-key")
+; (paq "liuchengxu/vim-which-key")
+(paq "folke/which-key.nvim")

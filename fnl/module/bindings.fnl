@@ -1,7 +1,8 @@
 (module module.bindings
-  {require {nvim aniseed.nvim
-            core aniseed.core
-            util util}})
+  {require {nvim     aniseed.nvim
+            core     aniseed.core
+            util     util
+            whichkey "which-key"}})
 
 ;; Utils ;;
 ;;;;;;;;;;;
@@ -96,8 +97,8 @@
 
 (set nvim.g.mapleader " ")
 (set nvim.g.maplocalleader ",")
-(noremap-silent :n :<leader> ":<c-u>WhichKey '<Space>'<CR>")
-(noremap-silent :v :<leader> ":<c-u>WhichKeyVisual '<Space>'<CR>")
+; (noremap-silent :n :<leader> ":<c-u>WhichKey '<Space>'<CR>")
+; (noremap-silent :v :<leader> ":<c-u>WhichKeyVisual '<Space>'<CR>")
 
 (global which_key_map {})
 
@@ -110,60 +111,49 @@
   (tset (core.get-in which_key_map (core.butlast keys)) (core.last keys) documentation)
   (noremap-silent mode (core.reduce concat "<leader>" keys) body))
 
-(define-category [:v] "+vim")
-(define-binding :n [:v :i] "install" ":luafile $MYVIMRC<CR>:PaqInstall<CR>")
-(define-binding :n [:v :u] "update" ":luafile $MYVIMRC<CR>:PaqUpdate<CR>")
-(define-binding :n [:v :c] "clean unused" ":luafile $MYVIMRC<CR>:PaqClean<CR>")
-(define-category [:v :e] "+edit")
-(define-binding :n [:v :e :B] "init.lua (bootstrap)" ":e $MYVIMRC<CR>")
-(define-binding :n [:v :e :i] "init.fnl" ":e $MYVIMRC/../fnl/init.fnl<CR>")
-(define-binding :n [:v :e :b] "bindings.fnl" ":e $MYVIMRC/../fnl/module/bindings.fnl<CR>")
-(define-binding :n [:v :e :p] "plugins.fnl" ":e $MYVIMRC/../fnl/module/plugins.fnl<CR>")
-(define-binding :n [:v :e :s] "settings.fnl" ":e $MYVIMRC/../fnl/module/settings.fnl<CR>")
-(define-binding :n [:v :e :l] "lsp.fnl" ":e $MYVIMRC/../fnl/module/lsp.fnl<CR>")
-
-(define-category [:q] "+quit")
-(define-binding :n [:q :q] "quit and save everything" ":wqall<CR>")
-(define-binding :n [:q :r] "quit and reload" ":Obsession ~/session.vim<CR>:!start neovide -S ~/session.vim<CR><CR>:wqall<CR>")
-
-(define-category [:w] "+windows")
-(define-binding :n [:w :h] "jump left" "<C-w>h")
-(define-binding :n [:w :j] "jump down" "<C-w>j")
-(define-binding :n [:w :k] "jump up" "<C-w>k")
-(define-binding :n [:w :l] "jump right" "<C-w>l")
-(define-binding :n [:w :y] "split left" ":vsplit<CR><ESC>")
-(define-binding :n [:w :u] "split down" ":split<CR><C-w>j<ESC>")
-(define-binding :n [:w :i] "split up" ":split<CR><ESC>")
-(define-binding :n [:w :o] "split right" ":vsplit<CR><C-w>l<ESC>")
-(define-binding :n [:w :=] "auto resize" "<Plug>(golden_ratio_resize)")
-
-(define-category [:b] "+buffers")
-(define-binding :n [:b :b] "buffers" ":Buffers<CR>")
-(define-binding :n [:b :h] "previous" ":bprevious<CR>")
-(define-binding :n [:b :l] "next" ":bnext<CR>")
-(define-binding :n [:b :k] "first" ":bfirst<CR>")
-(define-binding :n [:b :j] "last" ":blast<CR>")
-(define-binding :n [:b :d] "delete" ":BD<CR>")
-
-(define-category [:f] "+file")
-(define-binding :n [:f :r] "recent" ":lua require'telescope.builtin'.oldfiles{}<CR>")
-(define-binding :n [:f :s] "save" ":w<CR>")
-
-(define-category [:k] "+kill")
-(define-binding :n [:k :w] "window" ":wq<CR>")
-
-(define-category [:t] "+terminal")
-(define-binding :n [:t :t] "Open Terminal" "<ESC>:call v:lua.g.toggle_terminal()<CR>")
-(define-binding :n [:t :n] "New Terminal" "<ESC>:call v:lua.g.new_terminal()<CR>")
-(define-binding :n [:t :l] "Next Terminal" "<ESC>:call v:lua.g.next_terminal()<CR>")
-(define-binding :n [:t :h] "Previous Terminal" "<ESC>:call v:lua.g.previous_terminal()<CR>")
-
-(define-category [";"] "+commentary")
-(define-binding :n [";" ";"] "current line" ":Commentary<CR>")
-
-(set nvim.g.which_key_map which_key_map)
-
-;; (nvim.call_function "which_key#register" ["<Space>" "g:which_key_map"])
+(whichkey.register
+  {:v {:name "+Vim"
+       :i [":luafile $MYVIMRC<CR>:PaqInstall<CR>" "install"]
+       :u [":luafile $MYVIMRC<CR>:PaqUpdate<CR>" "update"]
+       :c [":luafile $MYVIMRC<CR>:PaqClean<CR>" "clean unused"]
+       :e {:name "+Edit"
+           :I [":e $MYVIMRC<CR>" "init.lua (bootstrap)"]
+           :i [":e $MYVIMRC/../fnl/init.fnl<CR>" "init.fnl"]
+           :b [":e $MYVIMRC/../fnl/module/bindings.fnl<CR>" "bindings.fnl"]
+           :p [":e $MYVIMRC/../fnl/module/plugins.fnl<CR>" "plugins.fnl"]
+           :s [":e $MYVIMRC/../fnl/module/settings.fnl<CR>" "settings.fnl"]
+           :l [":e $MYVIMRC/../fnl/module/lsp.fnl<CR>" "lsp.fnl"]}}
+   :q {:name "+Quit"
+       :q [":wqall<CR>" "quit and save everything"]
+       :r [":Obsession ~/session.vim<CR>:!start neovide -S ~/session.vim<CR><CR>:wqall<CR>" "quit and reload"]}
+   :w {:name "+Windows"
+       :h ["<C-w>h" "jump left"]
+       :j ["<C-w>j" "jump down"]
+       :k ["<C-w>k" "jump up"]
+       :l ["<C-w>l" "jump right"]
+       :y [":vsplit<CR><ESC>" "split left"]
+       :u [":split<CR><C-w>j<ESC>" "split down"]
+       :i [":split<CR><ESC>" "split up"]
+       :o [":vsplit<CR><C-w>l<ESC>" "split right"]
+       := ["<Plug>(golden_ratio_resize)" "auto resize"]}
+  :b {:name "+Buffers"
+      :b [":Buffers<CR>" "buffers"]
+      :h [":bprevious<CR>" "previous"]
+      :l [":bnext<CR>" "next"]
+      :k [":bfirst<CR>" "first"]
+      :j [":blast<CR>" "last"]
+      :d [":BD<CR>" "delete"]}
+  :f {:name "+Files"
+      :r [":lua require'telescope.builtin'.oldfiles{}<CR>" "recent"]
+      :s [":w<CR>" "save"]}
+  :t {:name "+Terminal"
+      :t ["<ESC>:call v:lua.g.toggle_terminal()<CR>" "Open Terminal"]
+      :n ["<ESC>:call v:lua.g.new_terminal()<CR>" "New Terminal"]
+      :l ["<ESC>:call v:lua.g.next_terminal()<CR>" "Next Terminal"]
+      :h ["<ESC>:call v:lua.g.previous_terminal()<CR>" "Previous Terminal"]}
+  ";" {:name "+Comments"
+       ";" [":Commentary<CR>" "current line"]}}
+  {:prefix "<leader>"})
 
 ;;  LSP  ;;
 ;;;;;;;;;;;
