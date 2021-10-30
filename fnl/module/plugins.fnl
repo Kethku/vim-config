@@ -33,7 +33,10 @@
 (paq "nvim-telescope/telescope.nvim")
 (paq "Olical/conjure")
 (paq "ms-jpq/coq_nvim")
-(paq "tami5/compe-conjure")
+
+;; Debugging 
+(paq "mfussenegger/nvim-dap")
+(paq "rcarriga/nvim-dap-ui")
 
 ;; Git
 (paq "airblade/vim-gitgutter")
@@ -41,5 +44,4 @@
 ;; Key Bindings
 (paq "tpope/vim-commentary")
 (paq "tpope/vim-surround")
-; (paq "liuchengxu/vim-which-key")
 (paq "folke/which-key.nvim")

@@ -97,36 +97,23 @@
 
 (set nvim.g.mapleader " ")
 (set nvim.g.maplocalleader ",")
-; (noremap-silent :n :<leader> ":<c-u>WhichKey '<Space>'<CR>")
-; (noremap-silent :v :<leader> ":<c-u>WhichKeyVisual '<Space>'<CR>")
-
-(global which_key_map {})
-
-(defn define-category [keys documentation]
-    (tset (core.get-in which_key_map (core.butlast keys) nil) (core.last keys) {:name documentation}))
-
-(defn- concat [a b] (.. a b))
-
-(defn define-binding [mode keys documentation body]
-  (tset (core.get-in which_key_map (core.butlast keys)) (core.last keys) documentation)
-  (noremap-silent mode (core.reduce concat "<leader>" keys) body))
 
 (whichkey.register
-  {:v {:name "+Vim"
+  {:v {:name "Vim"
        :i [":luafile $MYVIMRC<CR>:PaqInstall<CR>" "install"]
        :u [":luafile $MYVIMRC<CR>:PaqUpdate<CR>" "update"]
        :c [":luafile $MYVIMRC<CR>:PaqClean<CR>" "clean unused"]
-       :e {:name "+Edit"
+       :e {:name "Edit"
            :I [":e $MYVIMRC<CR>" "init.lua (bootstrap)"]
            :i [":e $MYVIMRC/../fnl/init.fnl<CR>" "init.fnl"]
            :b [":e $MYVIMRC/../fnl/module/bindings.fnl<CR>" "bindings.fnl"]
            :p [":e $MYVIMRC/../fnl/module/plugins.fnl<CR>" "plugins.fnl"]
            :s [":e $MYVIMRC/../fnl/module/settings.fnl<CR>" "settings.fnl"]
            :l [":e $MYVIMRC/../fnl/module/lsp.fnl<CR>" "lsp.fnl"]}}
-   :q {:name "+Quit"
+   :q {:name "Quit"
        :q [":wqall<CR>" "quit and save everything"]
        :r [":Obsession ~/session.vim<CR>:!start neovide -S ~/session.vim<CR><CR>:wqall<CR>" "quit and reload"]}
-   :w {:name "+Windows"
+   :w {:name "Windows"
        :h ["<C-w>h" "jump left"]
        :j ["<C-w>j" "jump down"]
        :k ["<C-w>k" "jump up"]
@@ -136,22 +123,22 @@
        :i [":split<CR><ESC>" "split up"]
        :o [":vsplit<CR><C-w>l<ESC>" "split right"]
        := ["<Plug>(golden_ratio_resize)" "auto resize"]}
-  :b {:name "+Buffers"
-      :b [":Buffers<CR>" "buffers"]
-      :h [":bprevious<CR>" "previous"]
-      :l [":bnext<CR>" "next"]
-      :k [":bfirst<CR>" "first"]
-      :j [":blast<CR>" "last"]
-      :d [":BD<CR>" "delete"]}
-  :f {:name "+Files"
-      :r [":lua require'telescope.builtin'.oldfiles{}<CR>" "recent"]
-      :s [":w<CR>" "save"]}
-  :t {:name "+Terminal"
-      :t ["<ESC>:call v:lua.g.toggle_terminal()<CR>" "Open Terminal"]
-      :n ["<ESC>:call v:lua.g.new_terminal()<CR>" "New Terminal"]
-      :l ["<ESC>:call v:lua.g.next_terminal()<CR>" "Next Terminal"]
-      :h ["<ESC>:call v:lua.g.previous_terminal()<CR>" "Previous Terminal"]}
-  ";" {:name "+Comments"
+   :b {:name "Buffers"
+       :b [":Buffers<CR>" "buffers"]
+       :h [":bprevious<CR>" "previous"]
+       :l [":bnext<CR>" "next"]
+       :k [":bfirst<CR>" "first"]
+       :j [":blast<CR>" "last"]
+       :d [":BD<CR>" "delete"]}
+   :f {:name "Files"
+       :r [":lua require'telescope.builtin'.oldfiles{}<CR>" "recent"]
+       :s [":w<CR>" "save"]}
+   :t {:name "Terminal"
+       :t ["<ESC>:call v:lua.g.toggle_terminal()<CR>" "Open Terminal"]
+       :n ["<ESC>:call v:lua.g.new_terminal()<CR>" "New Terminal"]
+       :l ["<ESC>:call v:lua.g.next_terminal()<CR>" "Next Terminal"]
+       :h ["<ESC>:call v:lua.g.previous_terminal()<CR>" "Previous Terminal"]}
+   ";" {:name "Comments"
        ";" [":Commentary<CR>" "current line"]}}
   {:prefix "<leader>"})
 
@@ -187,7 +174,3 @@
 
 (noremap-silent :n "-" ":Balsamic<CR>")
 (map-silent :n "<ESC>" ":noh<CR>:call v:lua.g.hide_terminal()<CR>")
-
-(core.run! 
-  (lambda [mode] (map-silent mode "fd" "<Esc>"))
-  [:n :i :t :c :v])

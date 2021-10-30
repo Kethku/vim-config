@@ -41,7 +41,7 @@
 (set vim.o.ve "block")
 (set vim.o.mouse "a")
 (set vim.o.clipboard "unnamed")
-(set vim.o.timeoutlen 100)
+(set vim.o.timeoutlen 500)
 (set vim.o.textwidth 120)
 (set vim.o.conceallevel 3)
 
