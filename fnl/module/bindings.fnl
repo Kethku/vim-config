@@ -23,6 +23,10 @@
   "Sets a mapping with {:noremap true :silent true}"
   (nvim.set_keymap mode from to {:noremap true :silent true}))
 
+(defn- noremap-silent-expr [mode from to]
+  "Sets a mapping with {:noremap true :silent true :expr true}"
+  (nvim.set_keymap mode from to {:noremap true :silent true :expr true}))
+
 (defn- declare-command [body]
   (nvim.command (.. "command! " body)))
 
@@ -149,6 +153,19 @@
 (noremap-silent :n "gd" ":lua vim.lsp.buf.definition()<CR>")
 (map-silent :n "<C-.>" ":lua vim.lsp.buf.code_action()<CR>")
 (map-silent :v "<C-.>" ":lua vim.lsp.buf.code_action()<CR>")
+
+;; COQ ;;
+;;;;;;;;;
+
+(set vim.g.coq_settings
+     {:keymap.recommended false})
+
+(noremap-silent-expr :i "<Esc>" "pumvisible() ? '<C-e><Esc>' : '<Esc>'")
+(noremap-silent-expr :i "<C-c>" "pumvisible() ? '<C-e><C-c>' : '<C-c>'")
+(noremap-silent-expr :i "<BS>" "pumvisible() ? '<C-e><BS>' : '<BS>'")
+; (noremap-silent-expr :i "<cr>" "pumvisible() ? (complete_info().selected == -1 ? '<C-e><CR>' : '<C-y>') : '<CR>'")
+(noremap-silent-expr :i "<Down>" "pumvisible() ? '<C-n>' : '<Down>'")
+(noremap-silent-expr :i "<Up>" "pumvisible() ? '<C-p>' : '<Up>'")
 
 ;; VISUAL ;;
 ;;;;;;;;;;;;

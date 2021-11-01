@@ -33,6 +33,7 @@
 (paq "nvim-telescope/telescope.nvim")
 (paq "Olical/conjure")
 (paq "ms-jpq/coq_nvim")
+(paq "github/copilot.vim")
 
 ;; Debugging 
 (paq "mfussenegger/nvim-dap")

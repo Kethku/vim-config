@@ -12,5 +12,5 @@ end
 execute 'packadd paq-nvim'
 
 local paq = require'paq-nvim'.paq
-paq 'kethku/aniseed'
+paq 'Olical/aniseed'
 paq 'savq/paq-nvim'
