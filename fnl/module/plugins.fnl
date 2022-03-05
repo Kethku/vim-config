@@ -1,14 +1,13 @@
 (module module.plugins
-  {require {paq paq-nvim}})
+  {require {paq paq}})
 
 (def- paq paq.paq)
 
 ;; Appearance
 (paq "folke/lsp-colors.nvim")
-(paq "vim-airline/vim-airline")
-(paq "vim-airline/vim-airline-themes")
-(paq "morhetz/gruvbox")
+(paq "ellisonleao/gruvbox.nvim")
 (paq "ryanoasis/vim-devicons")
+(paq "nvim-lualine/lualine.nvim")
 (paq "kyazdani42/nvim-web-devicons")
 (paq "romgrk/barbar.nvim")
 
@@ -20,6 +19,7 @@
 (paq "kethku/vim-floaterm")
 (paq "yuttie/comfortable-motion.vim")
 (paq "kethku/golden-ratio")
+(paq "nvim-treesitter/nvim-treesitter")
 
 ;; File Management
 ;; (paq "c:/dev/Projects/vim-balsamic")
@@ -40,9 +40,12 @@
 (paq "rcarriga/nvim-dap-ui")
 
 ;; Git
-(paq "airblade/vim-gitgutter")
+(paq "mhinz/vim-signify")
 
 ;; Key Bindings
 (paq "tpope/vim-commentary")
 (paq "tpope/vim-surround")
 (paq "folke/which-key.nvim")
+
+;; WGSL
+(paq "DingDean/wgsl.vim")

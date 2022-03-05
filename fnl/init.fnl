@@ -7,3 +7,4 @@
 (req "module.settings")
 (req "module.bindings")
 (req "module.lsp")
+(req "module.treesitter")

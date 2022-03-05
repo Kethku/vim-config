@@ -7,6 +7,8 @@
 ;; Utils ;;
 ;;;;;;;;;;;
 
+(def- windows? (= (nvim.fn.has "win32") 1))
+
 (defn- map [mode from to]
   "Sets a mapping"
   (nvim.set_keymap mode from to {}))
@@ -59,16 +61,16 @@
 
 (defn toggle-terminal []
   (setup-terminal)
-  (set nvim.o.shell "pwsh")
+  (when windows? (set nvim.o.shell "pwsh"))
   (nvim.ex.FloatermToggle)
-  (set nvim.o.shell "cmd"))
+  (when windows? (set nvim.o.shell "cmd")))
 (util.export :toggle_terminal toggle-terminal)
 
 (defn new-terminal []
   (setup-terminal)
-  (set nvim.o.shell "pwsh")
+  (when windows? (set nvim.o.shell "pwsh"))
   (nvim.ex.FloatermNew)
-  (set nvim.o.shell "cmd"))
+  (when windows? (set nvim.o.shell "cmd")))
 (util.export :new_terminal new-terminal)
 
 (defn next-terminal []
@@ -80,21 +82,6 @@
   (setup-terminal)
   (nvim.ex.FloatermPrev))
 (util.export :previous_terminal previous-terminal)
-
-(defn okeydokey [args]
-  (nvim.command (.. "!pwsh -Command ok " args)))
-(util.export :okeydokey okeydokey)
-
-(defn okeydokey-loc [args]
-  (nvim.command 
-    (.. "!pwsh -Command ok " args 
-        (nvim.ex.resolve "%:p") " " 
-        (nvim.ex.line ".") " " 
-        (nvim.ex.col "."))))
-(util.export :okeydokey_loc okeydokey-loc)
-
-(declare-command-with-args "Ok call v:lua.g.okeydokey(<q-args>)")
-(declare-command-with-args "OkLoc call v:lua.g.okeydokey_loc(<q-args>)")
 
 ;; LEADER ;;
 ;;;;;;;;;;;;
@@ -108,12 +95,12 @@
        :u [":luafile $MYVIMRC<CR>:PaqUpdate<CR>" "update"]
        :c [":luafile $MYVIMRC<CR>:PaqClean<CR>" "clean unused"]
        :e {:name "Edit"
-           :I [":e $MYVIMRC<CR>" "init.lua (bootstrap)"]
-           :i [":e $MYVIMRC/../fnl/init.fnl<CR>" "init.fnl"]
-           :b [":e $MYVIMRC/../fnl/module/bindings.fnl<CR>" "bindings.fnl"]
-           :p [":e $MYVIMRC/../fnl/module/plugins.fnl<CR>" "plugins.fnl"]
-           :s [":e $MYVIMRC/../fnl/module/settings.fnl<CR>" "settings.fnl"]
-           :l [":e $MYVIMRC/../fnl/module/lsp.fnl<CR>" "lsp.fnl"]}}
+           :I [(.. ":e " (nvim.fn.stdpath "config") "/init.lua<CR>") "init.lua (bootstrap)"]
+           :i [(.. ":e " (nvim.fn.stdpath "config") "/fnl/init.fnl<CR>") "init.fnl"]
+           :b [(.. ":e " (nvim.fn.stdpath "config") "/fnl/module/bindings.fnl<CR>") "bindings.fnl"]
+           :p [(.. ":e " (nvim.fn.stdpath "config") "/fnl/module/plugins.fnl<CR>") "plugins.fnl"]
+           :s [(.. ":e " (nvim.fn.stdpath "config") "/fnl/module/settings.fnl<CR>") "settings.fnl"]
+           :l [(.. ":e " (nvim.fn.stdpath "config") "/fnl/module/lsp.fnl<CR>") "lsp.fnl"]}}
    :q {:name "Quit"
        :q [":wqall<CR>" "quit and save everything"]
        :r [":Obsession ~/session.vim<CR>:!start neovide -S ~/session.vim<CR><CR>:wqall<CR>" "quit and reload"]}

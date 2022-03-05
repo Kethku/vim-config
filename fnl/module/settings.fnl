@@ -1,26 +1,38 @@
 (module module.settings
-  {require {core aniseed.core
-            util util}})
+  {require {core    aniseed.core
+            util    util
+            lualine lualine}})
 
 (vim.cmd "filetype plugin indent on")
 (vim.cmd "autocmd BufEnter * silent! lcd &:p:h")
 
-;; Airline
-(set vim.g.airline_powerline_fonts 1)
-(set vim.g.airline_section_z "%3l/%L:%3v")
-(set vim.g.airline_left_sep "")
-(set vim.g.airline_right_sep "")
-(set vim.g.airline#extensions#coc#enabled 1)
-(set vim.g.airline_section_warning "")
-(set vim.g.airline_section_error "")
+;; LuaLine
+(lualine.setup 
+  {:options {:icons_enabled true
+             :theme "auto"
+             :component_separators {:left "" :right ""}
+             :section_separators {:left "" :right ""}
+             :always_divide_middle true}
+   :sections {:lualine_a ["mode"]
+              :lualine_b ["branch" "diff" "diagnostics"]
+              :lualine_c ["filename"]
+              :lualine_x ["encoding" "fileformat" "filetype"]
+              :lualine_y ["progress"]
+              :lualine_z ["location"]}
+   :inactive_sections {:lualine_a []
+                       :lualine_b []
+                       :lualine_c ["filename"]
+                       :lualine_x ["location"]
+                       :lualine_y []
+                       :lualine_z []}})
 
 ;; Markdown
 (set vim.g.markdown_fenced_languages ["javascript" "typescript" "js=javascript"])
 (set vim.g.vim_markdown_folding_disabled 1)
 
 ;; Colors
-(vim.cmd "colorscheme gruvbox")
 (set vim.g.gruvbox_invert_selection 1)
+(vim.cmd "colorscheme gruvbox")
 
 ;; Terminal
 (set vim.g.floaterm_winblend 20)
@@ -35,7 +47,7 @@
       :display.pum.fast_close false})
 
 ;; Options
-(set vim.o.guifont "Cascadia Code PL,Delugia Nerd Font:h11")
+(set vim.o.guifont "Cascadia Code PL,Delugia Nerd Font:h14")
 (set vim.o.winblend 20)
 (set vim.o.pumblend 20)
 (set vim.o.ve "block")
