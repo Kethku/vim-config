@@ -35,24 +35,8 @@
 (defn- declare-command-with-args [body]
   (nvim.command (.. "command! -nargs=+ " body)))
 
-(defn- is-terminal-buffer [bufnumber]
-  (and (= (. nvim.bo bufnumber "buftype") "terminal") 
-       (= (. nvim.b bufnumber "floaterm_window") 1)))
-
-(defn- is-terminal-window [winnr]
-  (is-terminal-buffer (nvim.fn.winbufnr winnr)))
-
-(defn- find-terminal-window []
-  (core.first 
-    (core.filter 
-      is-terminal-window
-      (nvim.fn.range 1 (nvim.fn.winnr "$")))))
-(util.export :find_terminal_window find-terminal-window)
-
 (defn hide-terminal []
-  (let [winnr (find-terminal-window)]
-    (if (not (core.nil? winnr))
-      (nvim.command (.. winnr " wincmd q")))))
+  (nvim.ex.FloatermHide))
 (util.export :hide_terminal hide-terminal)
 
 (defn setup-terminal []
@@ -61,16 +45,12 @@
 
 (defn toggle-terminal []
   (setup-terminal)
-  (when windows? (set nvim.o.shell "pwsh"))
-  (nvim.ex.FloatermToggle)
-  (when windows? (set nvim.o.shell "cmd")))
+  (nvim.ex.FloatermToggle))
 (util.export :toggle_terminal toggle-terminal)
 
 (defn new-terminal []
   (setup-terminal)
-  (when windows? (set nvim.o.shell "pwsh"))
-  (nvim.ex.FloatermNew)
-  (when windows? (set nvim.o.shell "cmd")))
+  (nvim.ex.FloatermNew))
 (util.export :new_terminal new-terminal)
 
 (defn next-terminal []

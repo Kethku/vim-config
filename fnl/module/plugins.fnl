@@ -10,22 +10,24 @@
 (paq "nvim-lualine/lualine.nvim")
 (paq "kyazdani42/nvim-web-devicons")
 (paq "romgrk/barbar.nvim")
+(paq "lewis6991/satellite.nvim")
 
 ;; General Settings
 (paq "tpope/vim-sleuth")
 (paq "tpope/vim-endwise")
 (paq "tpope/vim-obsession")
 (paq "qpkorr/vim-bufkill")
-(paq "kethku/vim-floaterm")
+(paq "voldikss/vim-floaterm")
 (paq "yuttie/comfortable-motion.vim")
 (paq "kethku/golden-ratio")
 (paq "nvim-treesitter/nvim-treesitter")
 
-;; File Management
-;; (paq "c:/dev/Projects/vim-balsamic")
-
 ;; LSP
+(paq "williamboman/mason.nvim")
+(paq "williamboman/mason-lspconfig.nvim")
 (paq "neovim/nvim-lspconfig")
+(paq "simrat39/rust-tools.nvim")
+(paq "mfussenegger/nvim-dap")
 
 ;; Completion
 (paq "nvim-lua/popup.nvim")
@@ -35,17 +37,13 @@
 (paq "ms-jpq/coq_nvim")
 (paq "github/copilot.vim")
 
-;; Debugging 
-(paq "mfussenegger/nvim-dap")
-(paq "rcarriga/nvim-dap-ui")
+;; Navigation
+(paq "stevearc/aerial.nvim")
 
 ;; Git
-(paq "mhinz/vim-signify")
+(paq "lewis6991/gitsigns.nvim")
 
 ;; Key Bindings
 (paq "tpope/vim-commentary")
 (paq "tpope/vim-surround")
 (paq "folke/which-key.nvim")
-
-;; WGSL
-(paq "DingDean/wgsl.vim")

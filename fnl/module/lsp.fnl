@@ -1,5 +1,11 @@
 (module module.lsp
-  {require {config lspconfig}})
+  {require {config lspconfig
+            mason mason
+            masonLspconfig mason-lspconfig
+            rt rust-tools}})
 
-(config.rust_analyzer.setup {})
+(mason.setup)
+(masonLspconfig.setup)
+(rt.setup {})
+
 (config.tsserver.setup {})

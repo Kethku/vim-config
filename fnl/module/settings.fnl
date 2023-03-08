@@ -1,7 +1,10 @@
 (module module.settings
   {require {core    aniseed.core
             util    util
-            lualine lualine}})
+            lualine lualine
+            satellite satellite
+            aerial aerial
+            gitsigns gitsigns}})
 
 (vim.cmd "filetype plugin indent on")
 (vim.cmd "autocmd BufEnter * silent! lcd &:p:h")
@@ -35,16 +38,20 @@
 (vim.cmd "colorscheme gruvbox")
 
 ;; Terminal
-(set vim.g.floaterm_winblend 20)
+(vim.cmd "autocmd FileType floaterm setlocal winblend=10")
 (set vim.g.floaterm_position "center")
+(set vim.g.floaterm_shell "pwsh")
 
 ;; Neovide
 (set vim.g.neovide_refresh_rate 150)
 
-;; coq_nvim
-(set vim.g.coq_settings 
-     {:auto_start true
-      :display.pum.fast_close false})
+;; Aerial
+(aerial.setup
+  {:layout {:default_direction "float"}
+   :float {:relative "editor"}})
+
+;; Gitsigns
+(gitsigns.setup)
 
 ;; Options
 (set vim.o.guifont "Cascadia Code PL,Delugia Nerd Font:h14")
