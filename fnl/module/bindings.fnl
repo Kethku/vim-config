@@ -80,7 +80,8 @@
            :b [(.. ":e " (nvim.fn.stdpath "config") "/fnl/module/bindings.fnl<CR>") "bindings.fnl"]
            :p [(.. ":e " (nvim.fn.stdpath "config") "/fnl/module/plugins.fnl<CR>") "plugins.fnl"]
            :s [(.. ":e " (nvim.fn.stdpath "config") "/fnl/module/settings.fnl<CR>") "settings.fnl"]
-           :l [(.. ":e " (nvim.fn.stdpath "config") "/fnl/module/lsp.fnl<CR>") "lsp.fnl"]}}
+           :l [(.. ":e " (nvim.fn.stdpath "config") "/fnl/module/lsp.fnl<CR>") "lsp.fnl"]
+           :t [(.. ":e " (nvim.fn.stdpath "config") "/fnl/module/treesitter.fnl<CR>") "treesitter.fnl"]}}
    :q {:name "Quit"
        :q [":wqall<CR>" "quit and save everything"]
        :r [":Obsession ~/session.vim<CR>:!start neovide -S ~/session.vim<CR><CR>:wqall<CR>" "quit and reload"]}
@@ -116,10 +117,12 @@
 ;;  LSP  ;;
 ;;;;;;;;;;;
 
-(noremap-silent :n "gh" ":lua vim.lsp.buf.hover()<CR>")
-(noremap-silent :n "gd" ":lua vim.lsp.buf.definition()<CR>")
-(map-silent :n "<C-.>" ":lua vim.lsp.buf.code_action()<CR>")
-(map-silent :v "<C-.>" ":lua vim.lsp.buf.code_action()<CR>")
+(noremap-silent :n "gh" "<cmd>Lspsaga hover_doc<CR>")
+(noremap-silent :n "gD" "<cmd>Lspsaga goto_definition<CR>")
+(noremap-silent :n "gd" "<cmd>Lspsaga peek_definition<CR>")
+(noremap-silent :n "g." "<cmd>Lspsaga code_action<CR>")
+(noremap-silent :v "g." "<cmd>Lspsaga code_action<CR>")
+(noremap-silent :n "gr" ":IncRename ")
 
 ;; COQ ;;
 ;;;;;;;;;
@@ -130,7 +133,6 @@
 (noremap-silent-expr :i "<Esc>" "pumvisible() ? '<C-e><Esc>' : '<Esc>'")
 (noremap-silent-expr :i "<C-c>" "pumvisible() ? '<C-e><C-c>' : '<C-c>'")
 (noremap-silent-expr :i "<BS>" "pumvisible() ? '<C-e><BS>' : '<BS>'")
-; (noremap-silent-expr :i "<cr>" "pumvisible() ? (complete_info().selected == -1 ? '<C-e><CR>' : '<C-y>') : '<CR>'")
 (noremap-silent-expr :i "<Down>" "pumvisible() ? '<C-n>' : '<Down>'")
 (noremap-silent-expr :i "<Up>" "pumvisible() ? '<C-p>' : '<Up>'")
 
@@ -156,5 +158,4 @@
 ;; GENERAL ;;
 ;;;;;;;;;;;;;
 
-(noremap-silent :n "-" ":Balsamic<CR>")
 (map-silent :n "<ESC>" ":noh<CR>:call v:lua.g.hide_terminal()<CR>")

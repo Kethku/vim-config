@@ -28,6 +28,9 @@
 (paq "neovim/nvim-lspconfig")
 (paq "simrat39/rust-tools.nvim")
 (paq "mfussenegger/nvim-dap")
+(paq "j-hui/fidget.nvim")
+(paq "glepnir/lspsaga.nvim")
+(paq "smjonas/inc-rename.nvim")
 
 ;; Completion
 (paq "nvim-lua/popup.nvim")
@@ -36,6 +39,7 @@
 (paq "Olical/conjure")
 (paq "ms-jpq/coq_nvim")
 (paq "github/copilot.vim")
+(paq "aduros/ai.vim")
 
 ;; Navigation
 (paq "stevearc/aerial.nvim")

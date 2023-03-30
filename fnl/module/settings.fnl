@@ -8,6 +8,7 @@
 
 (vim.cmd "filetype plugin indent on")
 (vim.cmd "autocmd BufEnter * silent! lcd &:p:h")
+(vim.cmd "autocmd FileType markdown setlocal spell")
 
 ;; LuaLine
 (lualine.setup 
@@ -52,6 +53,9 @@
 
 ;; Gitsigns
 (gitsigns.setup)
+
+;; AI
+(set vim.g.ai_completions_model "gpt-3.5-turbo")
 
 ;; Options
 (set vim.o.guifont "Cascadia Code PL,Delugia Nerd Font:h14")
