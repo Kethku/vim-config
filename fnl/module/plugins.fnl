@@ -47,6 +47,9 @@
 ;; Git
 (paq "lewis6991/gitsigns.nvim")
 
+;; Grammar
+(paq "jose-elias-alvarez/null-ls.nvim")
+
 ;; Key Bindings
 (paq "tpope/vim-commentary")
 (paq "tpope/vim-surround")

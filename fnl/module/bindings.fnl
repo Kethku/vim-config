@@ -111,18 +111,17 @@
        :l ["<ESC>:call v:lua.g.next_terminal()<CR>" "Next Terminal"]
        :h ["<ESC>:call v:lua.g.previous_terminal()<CR>" "Previous Terminal"]}
    ";" {:name "Comments"
-       ";" [":Commentary<CR>" "current line"]}}
+       ";" [":Commentary<CR>" "current line"]}
+   "l" {:name "LSP"
+        :h ["<cmd>Lspsaga hover_doc<CR>" "Hover"]
+        :H ["<cmd>Lspsaga <cmd>Lspsaga show_cursor_diagnostics<CR>"]
+        :d ["<cmd>Lspsaga preview_definition<CR>" "Preview Definition"]
+        :D ["<cmd>Lspsaga goto_definition<CR>" "Goto Definition"]
+        :r ["<cmd>Lspsaga rename<CR>" "Rename"]
+        :. ["<cmd>Lspsaga code_action<CR>" "Code Action"]
+        :n ["<cmd>Lspsaga diagnostic_jump_next<CR>" "Next Diagnostic"]
+        :p ["<cmd>Lspsaga diagnostic_jump_prev<CR>" "Previous Diagnostic"]}}
   {:prefix "<leader>"})
-
-;;  LSP  ;;
-;;;;;;;;;;;
-
-(noremap-silent :n "gh" "<cmd>Lspsaga hover_doc<CR>")
-(noremap-silent :n "gD" "<cmd>Lspsaga goto_definition<CR>")
-(noremap-silent :n "gd" "<cmd>Lspsaga peek_definition<CR>")
-(noremap-silent :n "g." "<cmd>Lspsaga code_action<CR>")
-(noremap-silent :v "g." "<cmd>Lspsaga code_action<CR>")
-(noremap-silent :n "gr" ":IncRename ")
 
 ;; COQ ;;
 ;;;;;;;;;

@@ -9,6 +9,8 @@
 (vim.cmd "filetype plugin indent on")
 (vim.cmd "autocmd BufEnter * silent! lcd &:p:h")
 (vim.cmd "autocmd FileType markdown setlocal spell")
+(vim.cmd "autocmd FileType markdown set textwidth=60")
+(vim.cmd "autocmd BufWritePre * silent! lua vim.lsp.buf.format()")
 
 ;; LuaLine
 (lualine.setup 
@@ -56,6 +58,9 @@
 
 ;; AI
 (set vim.g.ai_completions_model "gpt-3.5-turbo")
+
+;; Completions
+(set vim.g.coq_settings {:auto_start "shut-up"})
 
 ;; Options
 (set vim.o.guifont "Cascadia Code PL,Delugia Nerd Font:h14")
