@@ -4,8 +4,7 @@
             masonLspconfig mason-lspconfig
             rt rust-tools
             fidget fidget
-            lspsaga lspsaga
-            inc_rename inc_rename}})
+            lspsaga lspsaga}})
 
 (mason.setup)
 (masonLspconfig.setup)
@@ -13,6 +12,10 @@
 
 (config.tsserver.setup {})
 
-(fidget.setup {})
-(lspsaga.setup {})
-(inc_rename.setup {})
+(fidget.setup 
+  {})
+(lspsaga.setup 
+  {:ui {:border "shadow"
+        :winblend 50}
+   :symbol_in_winbar {:enable false}
+   :lightbulb {:enable false}})

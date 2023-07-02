@@ -96,12 +96,11 @@
        :o [":vsplit<CR><C-w>l<ESC>" "split right"]
        := ["<Plug>(golden_ratio_resize)" "auto resize"]}
    :b {:name "Buffers"
-       :b [":Buffers<CR>" "buffers"]
-       :h [":bprevious<CR>" "previous"]
-       :l [":bnext<CR>" "next"]
-       :k [":bfirst<CR>" "first"]
-       :j [":blast<CR>" "last"]
-       :d [":BD<CR>" "delete"]}
+       :h ["<cmd>BufferPrevious<CR>" "previous"]
+       :l ["<cmd>BufferNext<CR>" "next"]
+       :k ["<cmd>BufferFirst<CR>" "first"]
+       :j ["<cmd>BufferLast<CR>" "last"]
+       :d ["<cmd>BufferClose<CR>" "delete"]}
    :f {:name "Files"
        :r [":lua require'telescope.builtin'.oldfiles{}<CR>" "recent"]
        :s [":w<CR>" "save"]}
@@ -120,7 +119,8 @@
         :r ["<cmd>Lspsaga rename<CR>" "Rename"]
         :. ["<cmd>Lspsaga code_action<CR>" "Code Action"]
         :n ["<cmd>Lspsaga diagnostic_jump_next<CR>" "Next Diagnostic"]
-        :p ["<cmd>Lspsaga diagnostic_jump_prev<CR>" "Previous Diagnostic"]}}
+        :p ["<cmd>Lspsaga diagnostic_jump_prev<CR>" "Previous Diagnostic"]
+        :o ["<cmd>Lspsaga outline<CR>" "Outline"]}}
   {:prefix "<leader>"})
 
 ;; COQ ;;

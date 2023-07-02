@@ -16,7 +16,6 @@
 (paq "tpope/vim-sleuth")
 (paq "tpope/vim-endwise")
 (paq "tpope/vim-obsession")
-(paq "qpkorr/vim-bufkill")
 (paq "voldikss/vim-floaterm")
 (paq "yuttie/comfortable-motion.vim")
 (paq "kethku/golden-ratio")
