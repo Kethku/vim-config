@@ -27,7 +27,7 @@
 (paq "neovim/nvim-lspconfig")
 (paq "simrat39/rust-tools.nvim")
 (paq "mfussenegger/nvim-dap")
-(paq "j-hui/fidget.nvim")
+(paq {1 "j-hui/fidget.nvim" :branch "legacy"})
 (paq "glepnir/lspsaga.nvim")
 (paq "smjonas/inc-rename.nvim")
 
@@ -39,12 +39,6 @@
 (paq "ms-jpq/coq_nvim")
 (paq "github/copilot.vim")
 (paq "aduros/ai.vim")
-
-;; Navigation
-(paq "stevearc/aerial.nvim")
-
-;; Git
-(paq "lewis6991/gitsigns.nvim")
 
 ;; Grammar
 (paq "jose-elias-alvarez/null-ls.nvim")

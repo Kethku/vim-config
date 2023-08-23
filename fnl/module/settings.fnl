@@ -2,9 +2,7 @@
   {require {core    aniseed.core
             util    util
             lualine lualine
-            satellite satellite
-            aerial aerial
-            gitsigns gitsigns}})
+            satellite satellite}})
 
 (vim.cmd "filetype plugin indent on")
 (vim.cmd "autocmd BufEnter * silent! lcd &:p:h")
@@ -47,14 +45,10 @@
 
 ;; Neovide
 (set vim.g.neovide_refresh_rate 150)
+(set vim.g.neovide_scroll_animation_length 0.2)
 
-;; Aerial
-(aerial.setup
-  {:layout {:default_direction "float"}
-   :float {:relative "editor"}})
-
-;; Gitsigns
-(gitsigns.setup)
+;; Scrollbar
+(satellite.setup {:width 0})
 
 ;; AI
 (set vim.g.ai_completions_model "gpt-3.5-turbo")
@@ -72,6 +66,8 @@
 (set vim.o.timeoutlen 500)
 (set vim.o.textwidth 120)
 (set vim.o.conceallevel 3)
+(set vim.o.signcolumn "no")
+(set vim.o.laststatus 3)
 
 (defn set-option [option]
   (vim.cmd (.. "set " option)))
