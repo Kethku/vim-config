@@ -6,7 +6,6 @@
  ;; Libraries
  "nvim-lua/popup.nvim"
  "nvim-lua/plenary.nvim"
- "nvim-telescope/telescope.nvim"
 
  ;; Appearance
  "ellisonleao/gruvbox.nvim"
@@ -24,7 +23,9 @@
  "yuttie/comfortable-motion.vim"
  "nvim-treesitter/nvim-treesitter"
 
- ;; Projects
+ ;; Telescope
+ "nvim-telescope/telescope.nvim"
+ "nvim-telescope/telescope-frecency.nvim"
  "nvim-telescope/telescope-project.nvim"
 
  ;; LSP
@@ -40,10 +41,9 @@
  "rcarriga/nvim-dap-ui"
  "folke/lsp-colors.nvim"
  "folke/trouble.nvim"
- "folke/neodev.nvim"
+ "lukas-reineke/lsp-format.nvim"
 
  ;; Completion
- "Olical/conjure"
  "ms-jpq/coq_nvim"
  "github/copilot.vim"
 

@@ -58,7 +58,10 @@
 
 ;; Telescope
 
-(telescope.load_extension "project")
+(telescope.setup 
+  {:defaults
+    {:border false}})
+(telescope.load_extension "frecency")
 
 ;; Neovide
 (set vim.g.neovide_refresh_rate 60)

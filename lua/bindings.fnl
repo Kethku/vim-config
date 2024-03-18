@@ -1,7 +1,6 @@
 (local util (require "util"))
 (local whichkey (require "which-key"))
 (local leap (require "leap"))
-(local nfnl-fs (require "nfnl.fs"))
 
 ;; UTILS ;;
 ;;;;;;;;;;;
@@ -80,8 +79,8 @@
            :t [(.. ":e " (vim.fn.stdpath "config") "/lua/treesitter.fnl<CR>") "treesitter.fnl"]
            :u [(.. ":e " (vim.fn.stdpath "config") "/lua/util.fnl<CR>") "util.fnl"]}}
    :q {:name "Quit"
-       :q [":wqall<CR>" "quit and save everything"]
-       :r [":Obsession ~/session.vim<CR>:!start c:/dev/Tools/neovide.exe -- -S ~/session.vim<CR><CR>:wqall!<CR>" "quit and reload"]}
+       :q [":FloatermKill!<CR>:wqall!<CR>" "quit and save everything"]
+       :r [":FloatermKill!<CR>:Obsession ~/session.vim<CR>:!start c:/dev/Tools/neovide.exe -- -S ~/session.vim<CR><CR>:wqall!<CR>" "quit and reload"]}
    :w {:name "Windows"
        :h ["<C-w>h" "jump left"]
        :j ["<C-w>j" "jump down"]
@@ -100,7 +99,7 @@
        :d ["<cmd>BufferClose<CR>" "delete"]
        :D ["<cmd>BufferClose!<CR>" "delete without saving"]}
    :f {:name "Files"
-       :f [":lua require'telescope.builtin'.oldfiles{}<CR>" "recent"]
+       :f [":Telescope frecency<CR>" "recent"]
        :p [":lua require'telescope'.extensions.project.project{}<CR>" "project"]
        :e [":NfnlFile %<CR>" "eval fnl"]
        :E [":luafile %<CR>" "eval lua"]
@@ -115,13 +114,13 @@
        ";" ["<cmd>Commentary<CR>" "Comment current line"]}
    "l" {:name "LSP"
         :h ["<cmd>Lspsaga hover_doc<CR>" "Hover"]
-        :H ["<cmd>Lspsaga <cmd>Lspsaga show_cursor_diagnostics<CR>"]
+        :H ["<cmd>Lspsaga <cmd>Lspsaga show_cursor_diagnostics<CR>" "Hover Diagnostics"]
         :d ["<cmd>Lspsaga goto_definition<CR>" "Goto Definition"]
         :r ["<cmd>Lspsaga rename<CR>" "Rename"]
         :. ["<cmd>Lspsaga code_action<CR>" "Code Action"]
         :n ["<cmd>Lspsaga diagnostic_jump_next<CR>" "Next Diagnostic"]
         :p ["<cmd>Lspsaga diagnostic_jump_prev<CR>" "Previous Diagnostic"]
-        :o ["<cmd>Lspsaga outline<CR>" "Outline"]
+        :o [":lua require'telescope.builtin'.lsp_document_symbols{}<CR>" "Outline"]
         :D ["<cmd>Trouble workspace_diagnostics<CR>" "Diagnostic List"]
         :R [":LspRestart<CR>" "Restart LSP"]}
    "d" {:name "DAP"

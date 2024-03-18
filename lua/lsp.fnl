@@ -4,24 +4,29 @@
 (local fidget (require "fidget"))
 (local lspsaga (require "lspsaga"))
 (local watchfiles (require "vim.lsp._watchfiles"))
+(local lsp-format (require "lsp-format"))
 
 (local dap (require "dap"))
 (local dap-projects (require "nvim-dap-projects"))
 (local nvim-dap-virtual-text (require "nvim-dap-virtual-text"))
 (local dap-ui (require "dapui"))
 
-(local neodev (require "neodev"))
-
 (mason.setup)
 (masonLspconfig.setup)
+(lsp-format.setup)
 
-(config.tsserver.setup {})
-(config.omnisharp.setup {})
+(config.tsserver.setup 
+  {:on_attach lsp-format.on_attach})
+(config.omnisharp.setup 
+  {:on_attach lsp-format.on_attach})
 (config.gdscript.setup 
   {:cmd ["ncat" "localhost" "6005"]
-   :flags {:debounce_text_changes 500}})
-(config.rust_analyzer.setup {})
-(config.lua_ls.setup {})
+   :flags {:debounce_text_changes 500}
+   :on_attach lsp-format.on_attach})
+(config.rust_analyzer.setup 
+  {:on_attach lsp-format.on_attach})
+(config.lua_ls.setup 
+  {:on_attach lsp-format.on_attach})
 
 (fidget.setup 
   {})
@@ -48,5 +53,3 @@
 
 (vim.diagnostic.config 
   {:update_in_insert false})
-
-(neodev.setup)

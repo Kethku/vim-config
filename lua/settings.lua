@@ -4,6 +4,7 @@ local satellite = require("satellite")
 local telescope = require("telescope")
 local autocmd = vim.api.nvim_create_autocmd
 local util = require("util")
+print("test")
 vim.cmd("filetype plugin indent on")
 vim.cmd("autocmd BufEnter * silent! lcd &:p:h")
 vim.cmd("autocmd FileType markdown setlocal spell")
@@ -17,7 +18,8 @@ vim.cmd("colorscheme gruvbox")
 vim.cmd("autocmd FileType floaterm setlocal winblend=10")
 vim.g.floaterm_position = "center"
 vim.g.floaterm_shell = "pwsh"
-telescope.load_extension("project")
+telescope.setup({defaults = {border = false}})
+telescope.load_extension("frecency")
 vim.g.neovide_refresh_rate = 60
 vim.g.neovide_scroll_animation_length = 0.2
 vim.g.neovide_remember_window_size = true
