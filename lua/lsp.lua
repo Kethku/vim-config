@@ -1,4 +1,4 @@
--- [nfnl] Compiled from fnl/lsp.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] Compiled from fnl\lsp.fnl by https://github.com/Olical/nfnl, do not edit.
 local config = require("lspconfig")
 local mason = require("mason")
 local masonLspconfig = require("mason-lspconfig")
@@ -19,7 +19,7 @@ config.gdscript.setup({cmd = {"ncat", "localhost", "6005"}, flags = {debounce_te
 config.rust_analyzer.setup({on_attach = lsp_format.on_attach})
 config.lua_ls.setup({on_attach = lsp_format.on_attach})
 fidget.setup({})
-lspsaga.setup({ui = {border = "none", winblend = 50}, symbol_in_winbar = {enable = false}, lightbulb = {enable = false}, outline = {win_position = "float", close_after_jump = true}})
+lspsaga.setup({ui = {winblend = 50}, symbol_in_winbar = {enable = true}, lightbulb = {enable = false}, outline = {win_position = "float", close_after_jump = true}})
 local function _1_(_, _0, _1)
   return true
 end

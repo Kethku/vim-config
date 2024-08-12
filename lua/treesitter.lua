@@ -1,8 +1,11 @@
--- [nfnl] Compiled from fnl/treesitter.fnl by https://github.com/Olical/nfnl, do not edit.
-local install = require("nvim-treesitter.install")
+-- [nfnl] Compiled from fnl\treesitter.fnl by https://github.com/Olical/nfnl, do not edit.
+require("nvim-treesitter")
 local parsers = require("nvim-treesitter.parsers")
 local configs = require("nvim-treesitter.configs")
 local parser_config = parsers.get_parser_configs()
-
-install.compilers = { "clang", "gcc" }
-return configs.setup({ ensure_installed = { "fennel", "rust", "lua", "markdown", "markdown_inline", "gdscript" }, highlight = { enable = true } })
+configs.setup({ensure_installed = {"fennel", "rust", "lua", "markdown", "markdown_inline", "gdscript", "glsl", "wgsl"}, highlight = {enable = true}})
+vim.treesitter.language.register("glsl", "frag")
+vim.treesitter.language.register("glsl", "vert")
+vim.treesitter.language.register("wgsl", "wfrag")
+vim.treesitter.language.register("wgsl", "wvert")
+return vim.filetype.add({extension = {wfrag = "wgsl", wvert = "wgsl"}})

@@ -2,6 +2,7 @@
 (local satellite (require "satellite"))
 (local telescope (require "telescope"))
 (local autocmd vim.api.nvim_create_autocmd)
+(local dock_nvim (require "dock_nvim"))
 
 (local util (require "util"))
 
@@ -9,19 +10,7 @@
 (vim.cmd "autocmd BufEnter * silent! lcd &:p:h")
 (vim.cmd "autocmd FileType markdown setlocal spell")
 (vim.cmd "autocmd FileType markdown set textwidth=60")
-
-; ;; This resets the window positions of non active windows for some reason.
-; ;; TODO: Use nvim_win_get_position, and extmarks to save the positions of
-; ;; windows containing this buffer and restore them after the format request
-; ;; completes.
-; (fn format_buffer []
-;   ;; TODO: loop over windows containing the given bufnum and store the current positions
-;   (vim.lsp.buf.format)
-;   ;; TODO: restore the stored positions. Note: this might have to wait for the format
-;   ;; request to complete.
-;   )
-; (util.export :format_buffer format_buffer)
-(vim.cmd "autocmd BufWritePre * silent! lua vim.lsp.buf.format()")
+(vim.cmd "autocmd BufNewFile,BufRead *.vert,*.frag set filetype=glsl")
 
 ;; LuaLine
 (lualine.setup 
@@ -48,16 +37,15 @@
 (set vim.g.vim_markdown_folding_disabled 1)
 
 ;; Colors
-(set vim.g.gruvbox_invert_selection 1)
 (vim.cmd "colorscheme gruvbox")
 
 ;; Terminal
 (vim.cmd "autocmd FileType floaterm setlocal winblend=10")
 (set vim.g.floaterm_position "center")
 (set vim.g.floaterm_shell "pwsh")
+(vim.cmd "FloatermNew --silent")
 
 ;; Telescope
-
 (telescope.setup 
   {:defaults
     {:border false}})
@@ -67,12 +55,16 @@
 (set vim.g.neovide_refresh_rate 60)
 (set vim.g.neovide_scroll_animation_length 0.2)
 (set vim.g.neovide_remember_window_size true)
+(set vim.g.experimental_layer_grouping true)
 
 ;; Scrollbar
 (satellite.setup {:width 0})
 
 ;; Completions
 (set vim.g.coq_settings {:auto_start "shut-up"})
+
+;; Dock
+(dock_nvim.setup)
 
 ;; Options
 (set vim.o.winblend 20)
@@ -88,6 +80,7 @@
 (set vim.o.number false)
 (set vim.o.termguicolors true)
 (set vim.o.expandtab true)
+(set vim.o.tabstop 4)
 (set vim.o.hlsearch true)
 (set vim.o.ignorecase true)
 (set vim.o.smartcase true)

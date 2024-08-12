@@ -31,9 +31,8 @@
 (fidget.setup 
   {})
 (lspsaga.setup 
-  {:ui {:border "none"
-        :winblend 50}
-   :symbol_in_winbar {:enable false}
+  {:ui {:winblend 50}
+   :symbol_in_winbar {:enable true}
    :lightbulb {:enable false}
    :outline {:win_position "float"
              :close_after_jump true}})

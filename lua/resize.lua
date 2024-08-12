@@ -1,4 +1,4 @@
--- [nfnl] Compiled from fnl/resize.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] Compiled from fnl\resize.fnl by https://github.com/Olical/nfnl, do not edit.
 local core = require("nfnl.core")
 local util = require("util")
 local function golden_ratio_width()
@@ -9,7 +9,7 @@ local function golden_ratio_height()
 end
 local function window_list()
   local function _1_(win)
-    _G.assert((nil ~= win), "Missing argument win on C:/Users/KaySimmons/AppData/Local/nvim/fnl/resize.fnl:12")
+    _G.assert((nil ~= win), "Missing argument win on C:\\Users\\KaySimmons\\AppData\\Local\\nvim\\fnl\\resize.fnl:12")
     return (vim.api.nvim_win_get_config(win).relative == "")
   end
   return core.filter(_1_, vim.api.nvim_tabpage_list_wins(0))
@@ -17,11 +17,11 @@ end
 local function find_parallel_windows(current_win)
   local windows = window_list()
   local function _2_(win)
-    _G.assert((nil ~= win), "Missing argument win on C:/Users/KaySimmons/AppData/Local/nvim/fnl/resize.fnl:19")
+    _G.assert((nil ~= win), "Missing argument win on C:\\Users\\KaySimmons\\AppData\\Local\\nvim\\fnl\\resize.fnl:19")
     return ((win ~= current_win) and (vim.api.nvim_win_get_height(win) == vim.api.nvim_win_get_height(current_win)))
   end
   local function _3_(win)
-    _G.assert((nil ~= win), "Missing argument win on C:/Users/KaySimmons/AppData/Local/nvim/fnl/resize.fnl:24")
+    _G.assert((nil ~= win), "Missing argument win on C:\\Users\\KaySimmons\\AppData\\Local\\nvim\\fnl\\resize.fnl:24")
     return ((win ~= current_win) and (vim.api.nvim_win_get_width(win) == vim.api.nvim_win_get_width(current_win)))
   end
   return {width = core.filter(_2_, windows), height = core.filter(_3_, windows)}

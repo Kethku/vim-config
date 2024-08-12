@@ -1,4 +1,4 @@
--- [nfnl] Compiled from fnl/util.fnl by https://github.com/Olical/nfnl, do not edit.
+-- [nfnl] Compiled from fnl\util.fnl by https://github.com/Olical/nfnl, do not edit.
 local Util = {}
 Util["safe-require"] = function(name)
   local ok_3f, val_or_err = pcall(require, name)

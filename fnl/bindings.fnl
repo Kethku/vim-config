@@ -59,25 +59,22 @@
 ;; LEADER ;;
 ;;;;;;;;;;;;
 
-(local windows? (= (vim.fn.has "win32") 1))
-
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader ",")
 
 (whichkey.register
   {:v {:name "Vim"
-       :i [":luafile $MYVIMRC<CR>:PaqInstall<CR>" "install"]
-       :u [":luafile $MYVIMRC<CR>:PaqUpdate<CR>" "update"]
-       :c [":luafile $MYVIMRC<CR>:PaqClean<CR>" "clean unused"]
+       :l [":Lazy<CR>" "lazy"]
        :m [":Mason<CR>" "mason"]
-       :e {:name "Edit"
-           :i [(.. ":e " (vim.fn.stdpath "config") "/init.fnl<CR>") "init.fnl"]
-           :b [(.. ":e " (vim.fn.stdpath "config") "/lua/bindings.fnl<CR>") "bindings.fnl"]
-           :p [(.. ":e " (vim.fn.stdpath "config") "/lua/plugins.fnl<CR>") "plugins.fnl"]
-           :s [(.. ":e " (vim.fn.stdpath "config") "/lua/settings.fnl<CR>") "settings.fnl"]
-           :l [(.. ":e " (vim.fn.stdpath "config") "/lua/lsp.fnl<CR>") "lsp.fnl"]
-           :t [(.. ":e " (vim.fn.stdpath "config") "/lua/treesitter.fnl<CR>") "treesitter.fnl"]
-           :u [(.. ":e " (vim.fn.stdpath "config") "/lua/util.fnl<CR>") "util.fnl"]}}
+       :e (let [config-path (vim.fn.stdpath "config")]
+               {:name "Edit"
+                :i [(.. ":e " config-path "/init.fnl<CR>") "init.fnl"]
+                :b [(.. ":e " config-path "/fnl/bindings.fnl<CR>") "bindings.fnl"]
+                :p [(.. ":e " config-path "/fnl/plugins.fnl<CR>") "plugins.fnl"]
+                :s [(.. ":e " config-path "/fnl/settings.fnl<CR>") "settings.fnl"]
+                :l [(.. ":e " config-path "/fnl/lsp.fnl<CR>") "lsp.fnl"]
+                :t [(.. ":e " config-path "/fnl/treesitter.fnl<CR>") "treesitter.fnl"]
+                :u [(.. ":e " config-path "/fnl/util.fnl<CR>") "util.fnl"]})}
    :q {:name "Quit"
        :q [":FloatermKill!<CR>:wqall!<CR>" "quit and save everything"]
        :r [":FloatermKill!<CR>:Obsession ~/session.vim<CR>:!start c:/dev/Tools/neovide.exe -- -S ~/session.vim<CR><CR>:wqall!<CR>" "quit and reload"]}
@@ -103,7 +100,8 @@
        :p [":lua require'telescope'.extensions.project.project{}<CR>" "project"]
        :e [":NfnlFile %<CR>" "eval fnl"]
        :E [":luafile %<CR>" "eval lua"]
-       :s [":w<CR>" "save"]}
+       :s [":w<CR>" "save"]
+       :c [":cd %:h<CR>" "cd to file"]}
    :t {:name "Terminal"
        :t ["<ESC>:call v:lua.g.toggle_terminal()<CR>" "Open Terminal"]
        :n ["<ESC>:call v:lua.g.new_terminal()<CR>" "New Terminal"]
@@ -172,7 +170,9 @@
 ;; GENERAL ;;
 ;;;;;;;;;;;;;
 
-(map-silent :n "<ESC>" ":noh<CR>:call v:lua.g.hide_terminal()<CR>")
+(map-silent :n "<ESC>" 
+  (.. ":noh<CR>"
+      ":call v:lua.g.hide_terminal()<CR>"))
 (leap.add_default_mappings)
 
 
