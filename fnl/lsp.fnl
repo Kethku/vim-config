@@ -15,7 +15,7 @@
 (masonLspconfig.setup)
 (lsp-format.setup)
 
-(config.tsserver.setup 
+(config.ts_ls.setup 
   {:on_attach lsp-format.on_attach})
 (config.omnisharp.setup 
   {:on_attach lsp-format.on_attach})

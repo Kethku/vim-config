@@ -69,6 +69,4 @@
    "tpope/vim-commentary"
    (_ "folke/which-key.nvim"
       {:opts {:notify false}})
-   "ggandor/leap.nvim"
-   (_ "kethku/dock_nvim"
-      {:dir "c:/dev/Projects/dock_nvim"})])
+   "ggandor/leap.nvim"])
