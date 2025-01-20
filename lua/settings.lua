@@ -2,6 +2,7 @@
 local lualine = require("lualine")
 local satellite = require("satellite")
 local telescope = require("telescope")
+local noice = require("noice")
 local autocmd = vim.api.nvim_create_autocmd
 
 local util = require("util")
@@ -42,6 +43,16 @@ lualine.setup({
         lualine_x = { "location" },
         lualine_y = {},
         lualine_z = {}
+    }
+})
+
+-- Noice
+noice.setup({
+    presets = {
+        bottom_search = true,
+        long_message_to_split = true,
+        inc_rename = false,
+        lsp_doc_border = false,
     }
 })
 
