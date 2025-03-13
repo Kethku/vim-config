@@ -1,8 +1,8 @@
--- [nfnl] Compiled from fnl\settings.fnl by https://github.com/Olical/nfnl, do not edit.
 local lualine = require("lualine")
 local satellite = require("satellite")
 local telescope = require("telescope")
 local noice = require("noice")
+local notify = require("notify")
 local autocmd = vim.api.nvim_create_autocmd
 
 local util = require("util")
@@ -49,11 +49,28 @@ lualine.setup({
 -- Noice
 noice.setup({
     presets = {
-        bottom_search = true,
+        bottom_search = false,
+        command_palette = true,
         long_message_to_split = true,
         inc_rename = false,
         lsp_doc_border = false,
-    }
+    },
+})
+
+local stages = require("notify.stages.fade_in_slide_out")("top_down")
+notify.setup({
+    render = "compact",
+    stages = {
+        function(...)
+          local opts = stages[1](...)
+          if opts then
+            opts.border = "none"
+            opts.row = opts.row + 1
+          end
+          return opts
+        end,
+        unpack(stages, 2),
+    },
 })
 
 -- Markdown
@@ -67,6 +84,8 @@ vim.cmd("colorscheme gruvbox")
 vim.cmd("autocmd FileType floaterm setlocal winblend=10")
 vim.g.floaterm_position = "center"
 vim.g.floaterm_shell = "pwsh"
+vim.g.floaterm_borderchars = "        "
+vim.g.floaterm_title = ""
 vim.cmd("FloatermNew --silent")
 
 -- Telescope
@@ -77,6 +96,8 @@ telescope.load_extension("frecency")
 vim.g.neovide_refresh_rate = 60
 vim.g.neovide_scroll_animation_length = 0.2
 vim.g.neovide_remember_window_size = true
+vim.g.neovide_transparency = 0.95
+vim.g.neovide_floating_corner_radius = 0.33
 vim.g.experimental_layer_grouping = true
 
 -- Scrollbar

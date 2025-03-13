@@ -115,6 +115,13 @@ whichkey.register({
         l = { "<ESC>:call v:lua.g.next_terminal()<CR>", "Next Terminal" },
         h = { "<ESC>:call v:lua.g.previous_terminal()<CR>", "Previous Terminal" }
     },
+    T = {
+        name = "Tab",
+        T = { "<ESC>:tabnew<CR>", "New Tab" },
+        N = { "<ESC>:tabnext<CR>", "Next Tab" },
+        P = { "<ESC>:tabprevious<CR>", "Previous Tab" },
+        D = { "<ESC>:tabclose<CR>", "Close Tab" }
+    },
     x = {
         name = "teXt",
         i = { "<cmd>Sleuth<CR>", "Autodetect Indent Settings" },
@@ -151,6 +158,10 @@ whichkey.register({
         name = "Okeydokey",
         b = { ":!ok build<CR>", "Build Project" },
         g = { ":!ok generate<CR>", "Generate Project Files" },
+    },
+    p = {
+        name = "Perforce",
+        e = { ":!p4 edit %<CR>:w!<CR>", "Edit Current File" },
     },
     [":"] = { ":lua require'telescope.builtin'.commands{}<CR>", "Commands" }
 }, { prefix = "<leader>" })

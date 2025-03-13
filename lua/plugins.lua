@@ -14,10 +14,6 @@ return require("lazy").setup({
     "romgrk/barbar.nvim",
     "lewis6991/satellite.nvim",
     "ellisonleao/gruvbox.nvim",
-    {
-        "olical/nfnl",
-        ft = "fennel"
-    },
     "tpope/vim-sleuth",
     {
         "voldikss/vim-floaterm",
@@ -74,6 +70,15 @@ return require("lazy").setup({
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify"
+        }
+    },
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            }
         }
     }
 })
