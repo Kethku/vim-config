@@ -103,8 +103,7 @@ whichkey.register({
         name = "Files",
         f = { ":Telescope frecency<CR>", "recent" },
         p = { ":lua require'telescope'.extensions.project.project{}<CR>", "project" },
-        e = { ":NfnlFile %<CR>", "eval fnl" },
-        E = { ":luafile %<CR>", "eval lua" },
+        e = { ":luafile %<CR>", "eval lua" },
         s = { ":w<CR>", "save" },
         c = { ":cd %:h<CR>", "cd to file" }
     },
@@ -143,7 +142,8 @@ whichkey.register({
     },
     d = {
         name = "DAP",
-        d = { "<cmd>lua require'dap'.continue()<CR>", "Continue/Start" },
+        d = { "<cmd>lua require'telescope'.extensions.dap.configurations{}<CR>", "Start" },
+        c = { "<cmd>lua require'dap'.continue()<CR>", "Continue" },
         h = { "<cmd>lua require'dap.ui.widgets'.hover()<CR>", "Hover" },
         j = { "<cmd>lua require'dap'.step_into()<CR>", "Step Into" },
         k = { "<cmd>lua require'dap'.step_out()<CR>", "Step Out" },

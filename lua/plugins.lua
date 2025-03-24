@@ -41,8 +41,13 @@ return require("lazy").setup({
         "rcarriga/nvim-dap-ui",
         dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" }
     },
+    { 
+        "nvim-telescope/telescope-dap.nvim",
+        dependencies = { "mfussenegger/nvim-dap", "nvim-telescope/telescope.nvim" } 
+    },
     "folke/lsp-colors.nvim",
     "folke/trouble.nvim",
+    "klen/nvim-config-local",
     "lukas-reineke/lsp-format.nvim",
     {
         "ms-jpq/coq_nvim",

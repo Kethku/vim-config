@@ -3,6 +3,7 @@ local satellite = require("satellite")
 local telescope = require("telescope")
 local noice = require("noice")
 local notify = require("notify")
+local configLocal = require("config-local")
 local autocmd = vim.api.nvim_create_autocmd
 
 local util = require("util")
@@ -12,6 +13,11 @@ vim.cmd("autocmd BufEnter * silent! lcd &:p:h")
 vim.cmd("autocmd FileType markdown setlocal spell")
 vim.cmd("autocmd FileType markdown set textwidth=60")
 vim.cmd("autocmd BufNewFile,BufRead *.vert,*.frag set filetype=glsl")
+
+-- Config Local
+configLocal.setup({
+    lookup_parents = true,
+})
 
 -- LuaLine
 lualine.setup({
@@ -115,9 +121,9 @@ vim.o.clipboard = "unnamedplus"
 vim.o.timeoutlen = 500
 vim.o.textwidth = 120
 vim.o.conceallevel = 3
-vim.o.signcolumn = "no"
-vim.o.laststatus = 3
+vim.o.signcolumn = "auto"
 vim.o.number = false
+vim.o.laststatus = 3
 vim.o.termguicolors = true
 vim.o.expandtab = true
 vim.o.tabstop = 4

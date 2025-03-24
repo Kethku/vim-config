@@ -1,15 +1,15 @@
--- [nfnl] Compiled from fnl\lsp.fnl by https://github.com/Olical/nfnl, do not edit.
 local config = require("lspconfig")
-local mason = require("mason")
-local masonLspconfig = require("mason-lspconfig")
-local fidget = require("fidget")
-local lspsaga = require("lspsaga")
-local watchfiles = require("vim.lsp._watchfiles")
-local lsp_format = require("lsp-format")
 local dap = require("dap")
 local dap_projects = require("nvim-dap-projects")
-local nvim_dap_virtual_text = require("nvim-dap-virtual-text")
 local dap_ui = require("dapui")
+local fidget = require("fidget")
+local lsp_format = require("lsp-format")
+local lspsaga = require("lspsaga")
+local mason = require("mason")
+local masonLspconfig = require("mason-lspconfig")
+local nvim_dap_virtual_text = require("nvim-dap-virtual-text")
+local telescope = require("telescope")
+local watchfiles = require("vim.lsp._watchfiles")
 
 mason.setup()
 masonLspconfig.setup()
@@ -34,7 +34,7 @@ lspsaga.setup({ ui = { winblend = 50, border = "none" }, symbol_in_winbar = { en
 watchfiles["_watchfunc"] = function(_, _0, _1)
     return true
 end
-
+telescope.load_extension("dap")
 dap.defaults.fallback["exception_breakpoints"] = { "rust_panic" }
 dap_projects.search_project_config()
 nvim_dap_virtual_text.setup()
@@ -42,10 +42,28 @@ dap_ui.setup()
 vim.fn.sign_define(
     "DapBreakpoint",
     {
-        text = "\240\159\148\180",
+        text = "🔴",
         texthl = "DapBreakpointSymbol",
         linehl = "DapBreakpoint",
         numhl = "DapBreakpoint"
     }
 )
-vim.diagnostic.config({ update_in_insert = false })
+vim.fn.sign_define(
+    "DapBreakpointRejected",
+    {
+        text = "🟢",
+        texthl = "GruvboxGray",
+        linehl = "DapBreakpoint",
+        numhl = "DapBreakpoint"
+    }
+)
+vim.fn.sign_define(
+    "DapLogPoint",
+    {
+        text = "",
+        texthl = "GruvboxGray",
+        linehl = "DapBreakpoint",
+        numhl = "DapBreakpoint"
+    }
+)
+vim.diagnostic.config({ update_in_insert = false, signs = false })
