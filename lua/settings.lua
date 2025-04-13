@@ -95,19 +95,87 @@ vim.g.floaterm_title = ""
 vim.cmd("FloatermNew --silent")
 
 -- Telescope
-telescope.setup({ defaults = { border = false } })
+local temp_showtabline
+local temp_laststatus
+
+function _G.global_telescope_find_pre()
+  temp_showtabline = vim.o.showtabline
+  temp_laststatus = vim.o.laststatus
+  vim.o.showtabline = 0
+  vim.o.laststatus = 0
+end
+
+function _G.global_telescope_leave_prompt()
+  vim.o.laststatus = temp_laststatus
+  vim.o.showtabline = temp_showtabline
+end
+
+vim.cmd([[
+  augroup MyAutocmds
+    autocmd!
+    autocmd User TelescopeFindPre lua global_telescope_find_pre()
+    autocmd FileType TelescopePrompt autocmd BufLeave <buffer> lua global_telescope_leave_prompt()
+  augroup END
+]])
+
+local function normalize_path(path)
+  return path:gsub("\\", "/")
+end
+
+local function normalize_cwd()
+  return normalize_path(vim.loop.cwd()) .. "/"
+end
+
+local function is_subdirectory(cwd, path)
+  return string.lower(path:sub(1, #cwd)) == string.lower(cwd)
+end
+
+local function split_filepath(path)
+  local normalized_path = normalize_path(path)
+  local normalized_cwd = normalize_cwd()
+  local filename = normalized_path:match("[^/]+$")
+
+  if is_subdirectory(normalized_cwd, normalized_path) then
+    local stripped_path = normalized_path:sub(#normalized_cwd + 1, -(#filename + 1))
+    return stripped_path, filename
+  else
+    local stripped_path = normalized_path:sub(1, -(#filename + 1))
+    return stripped_path, filename
+  end
+end
+
+local function path_display(_, path)
+  local stripped_path, filename = split_filepath(path)
+  if filename == stripped_path or stripped_path == "" then
+    return filename
+  end
+  return string.format("%s ~ %s", filename, stripped_path)
+end
+
+telescope.setup({ 
+    defaults = { 
+        border = false, 
+        layout_strategy = "horizontal", 
+        layout_config = {
+            width = 0.999,
+            height = 0.999,
+        },
+        sorting_strategy = "ascending",
+        path_display = path_display
+    } 
+})
 telescope.load_extension("frecency")
 
 -- Neovide
-vim.g.neovide_refresh_rate = 60
+vim.g.neovide_refresh_rate = 140
 vim.g.neovide_scroll_animation_length = 0.2
 vim.g.neovide_remember_window_size = true
-vim.g.neovide_transparency = 0.95
+vim.g.neovide_opacity = 0.95
 vim.g.neovide_floating_corner_radius = 0.33
 vim.g.experimental_layer_grouping = true
 
 -- Scrollbar
-satellite.setup({ width = 0 })
+-- satellite.setup({ width = 0 })
 
 -- Completions
 vim.g.coq_settings = { auto_start = "shut-up" }

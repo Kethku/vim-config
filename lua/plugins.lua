@@ -9,6 +9,7 @@ return require("lazy").setup({
         }
     },
     "ryanoasis/vim-devicons",
+    "jakemason/ouroboros",
     "nvim-lualine/lualine.nvim",
     "kyazdani42/nvim-web-devicons",
     "romgrk/barbar.nvim",
@@ -46,8 +47,8 @@ return require("lazy").setup({
         dependencies = { "mfussenegger/nvim-dap", "nvim-telescope/telescope.nvim" } 
     },
     "folke/lsp-colors.nvim",
-    "folke/trouble.nvim",
     "klen/nvim-config-local",
+    "folke/trouble.nvim",
     "lukas-reineke/lsp-format.nvim",
     {
         "ms-jpq/coq_nvim",

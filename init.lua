@@ -17,5 +17,4 @@ req("settings")
 req("lsp")
 req("treesitter")
 req("bindings")
-req("resize")
 return {}

@@ -11,7 +11,7 @@ local nvim_dap_virtual_text = require("nvim-dap-virtual-text")
 local telescope = require("telescope")
 local watchfiles = require("vim.lsp._watchfiles")
 
-mason.setup()
+mason.setup({})
 masonLspconfig.setup()
 lsp_format.setup()
 

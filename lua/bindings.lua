@@ -53,8 +53,8 @@ local function previous_terminal()
 end
 util.export("previous_terminal", previous_terminal)
 
+
 vim.g.mapleader = " "
-vim.g.maplocalleader = ","
 local config_path = vim.fn.stdpath("config")
 
 whichkey.register({
@@ -105,7 +105,7 @@ whichkey.register({
         p = { ":lua require'telescope'.extensions.project.project{}<CR>", "project" },
         e = { ":luafile %<CR>", "eval lua" },
         s = { ":w<CR>", "save" },
-        c = { ":cd %:h<CR>", "cd to file" }
+        c = { ":cd %:h<CR>", "cd to file" },
     },
     t = {
         name = "Terminal",
