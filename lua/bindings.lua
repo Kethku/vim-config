@@ -53,7 +53,6 @@ local function previous_terminal()
 end
 util.export("previous_terminal", previous_terminal)
 
-
 vim.g.mapleader = " "
 local config_path = vim.fn.stdpath("config")
 
@@ -62,6 +61,7 @@ whichkey.register({
         name = "Vim",
         l = { ":Lazy<CR>", "lazy" },
         m = { ":Mason<CR>", "mason" },
+        t = { ":lua require'telescope.builtin'.pickers{}<CR>", "telescope pickers" },
         e = {
             name = "Edit",
             i = { (":e " .. config_path .. "/init.lua<CR>"), "init.lua" },
@@ -72,6 +72,15 @@ whichkey.register({
             t = { (":e " .. config_path .. "/lua/treesitter.lua<CR>"), "treesitter.lua" },
             u = { (":e " .. config_path .. "/lua/util.lua<CR>"), "util.lua" }
         }
+    },
+    k = {
+        name = "quiKfix",
+        o = { ":copen<CR>", "open quickfix list" },
+        e = { ":cc<CR>", "show current error" },
+        h = { ":cfirst<CR>", "first" },
+        j = { ":cnext<CR>", "next" },
+        k = { ":cprev<CR>", "prev" },
+        l = { ":clast<CR>", "last" },
     },
     q = {
         name = "Quit",
@@ -101,7 +110,8 @@ whichkey.register({
     },
     f = {
         name = "Files",
-        f = { ":Telescope frecency<CR>", "recent" },
+        f = { ":lua require'telescope.builtin'.find_files{}<CR>", "find" },
+        r = { ":Telescope frecency<CR>", "recent" },
         p = { ":lua require'telescope'.extensions.project.project{}<CR>", "project" },
         e = { ":luafile %<CR>", "eval lua" },
         s = { ":w<CR>", "save" },
@@ -154,16 +164,11 @@ whichkey.register({
         t = { "<cmd>lua require'dapui'.toggle()<CR>", "Toggle DAP UI" },
         q = { "<cmd>lua require'dap'.close()<CR>", "Close" }
     },
-    o = {
-        name = "Okeydokey",
-        b = { ":!ok build<CR>", "Build Project" },
-        g = { ":!ok generate<CR>", "Generate Project Files" },
-    },
     p = {
         name = "Perforce",
         e = { ":!p4 edit %<CR>:w!<CR>", "Edit Current File" },
     },
-    [":"] = { ":lua require'telescope.builtin'.commands{}<CR>", "Commands" }
+    ["/"] = { ":lua require'telescope.builtin'.live_grep{}<CR>", "Search from current directory" }
 }, { prefix = "<leader>" })
 
 vim.g.coq_settings = { ["keymap.recommended"] = false }

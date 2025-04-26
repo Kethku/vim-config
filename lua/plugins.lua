@@ -13,7 +13,6 @@ return require("lazy").setup({
     "nvim-lualine/lualine.nvim",
     "kyazdani42/nvim-web-devicons",
     "romgrk/barbar.nvim",
-    "lewis6991/satellite.nvim",
     "ellisonleao/gruvbox.nvim",
     "tpope/vim-sleuth",
     {

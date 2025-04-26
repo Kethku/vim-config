@@ -1,5 +1,4 @@
 local lualine = require("lualine")
-local satellite = require("satellite")
 local telescope = require("telescope")
 local noice = require("noice")
 local notify = require("notify")
@@ -173,9 +172,6 @@ vim.g.neovide_remember_window_size = true
 vim.g.neovide_opacity = 0.95
 vim.g.neovide_floating_corner_radius = 0.33
 vim.g.experimental_layer_grouping = true
-
--- Scrollbar
--- satellite.setup({ width = 0 })
 
 -- Completions
 vim.g.coq_settings = { auto_start = "shut-up" }
