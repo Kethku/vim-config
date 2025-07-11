@@ -24,8 +24,8 @@ lualine.setup({
         icons_enabled = true,
         theme = "auto",
         component_separators = {
-            left = "\238\130\181",
-            right = "\238\130\183"
+            left = "",
+            right = ""
         },
         section_separators = {
             left = "\238\130\180",
@@ -81,9 +81,6 @@ notify.setup({
 -- Markdown
 vim.g.markdown_fenced_languages = { "javascript", "typescript", "js=javascript" }
 vim.g.vim_markdown_folding_disabled = 1
-
--- Colors
-vim.cmd("colorscheme gruvbox")
 
 -- Terminal
 vim.cmd("autocmd FileType floaterm setlocal winblend=10")
@@ -165,12 +162,89 @@ telescope.setup({
 })
 telescope.load_extension("frecency")
 
+-- Oil
+-- helper function to parse output
+local function parse_output(proc)
+  local result = proc:wait()
+  local ret = {}
+  if result.code == 0 then
+    for line in vim.gsplit(result.stdout, "\n", { plain = true, trimempty = true }) do
+      -- Remove trailing slash
+      line = line:gsub("/$", "")
+      ret[line] = true
+    end
+  end
+  return ret
+end
+
+-- build git status cache
+local function new_git_status()
+  return setmetatable({}, {
+    __index = function(self, key)
+      local ignore_proc = vim.system(
+        { "git", "ls-files", "--ignored", "--exclude-standard", "--others", "--directory" },
+        {
+          cwd = key,
+          text = true,
+        }
+      )
+      local tracked_proc = vim.system({ "git", "ls-tree", "HEAD", "--name-only" }, {
+        cwd = key,
+        text = true,
+      })
+      local ret = {
+        ignored = parse_output(ignore_proc),
+        tracked = parse_output(tracked_proc),
+      }
+
+      rawset(self, key, ret)
+      return ret
+    end,
+  })
+end
+local git_status = new_git_status()
+
+-- Clear git status cache on refresh
+local refresh = require("oil.actions").refresh
+local orig_refresh = refresh.callback
+refresh.callback = function(...)
+  git_status = new_git_status()
+  orig_refresh(...)
+end
+
+require("oil").setup({
+  view_options = {
+    show_hidden = true,
+    is_hidden_file = function(name, bufnr)
+      local dir = require("oil").get_current_dir(bufnr)
+      local is_dotfile = vim.startswith(name, ".") and name ~= ".."
+      -- if no local directory (e.g. for ssh connections), just hide dotfiles
+      if not dir then
+        return is_dotfile
+      end
+      -- dotfiles are considered hidden unless tracked
+      if is_dotfile then
+        return not git_status[dir].tracked[name]
+      else
+        -- Check if file is gitignored
+        return git_status[dir].ignored[name]
+      end
+    end,
+  },
+})
+
 -- Neovide
 vim.g.neovide_refresh_rate = 140
 vim.g.neovide_scroll_animation_length = 0.2
 vim.g.neovide_remember_window_size = true
-vim.g.neovide_opacity = 0.95
+vim.g.neovide_opacity = 1.
 vim.g.neovide_floating_corner_radius = 0.33
+vim.g.neovide_cursor_trail_size = 0.7
+vim.g.neovide_cursor_animation_length = 0.150
+vim.g.neovide_title_background_color = string.format(
+    "%x",
+    vim.api.nvim_get_hl(0, {id=vim.api.nvim_get_hl_id_by_name("Normal")}).bg
+)
 vim.g.experimental_layer_grouping = true
 
 -- Completions
@@ -200,3 +274,13 @@ vim.o.hidden = true
 vim.o.wrap = false
 vim.o.splitkeep = "screen"
 vim.o.mousemodel = "extend"
+vim.o.autochdir = true
+vim.cmd([[
+  " Use persistent history.
+  if !isdirectory("C:/dev/Undo")
+      call mkdir("C:/dev/Undo", "", 0700)
+  endif
+  set undodir=C:/dev/Undo
+  set undofile
+]])
+

@@ -168,6 +168,11 @@ whichkey.register({
         name = "Perforce",
         e = { ":!p4 edit %<CR>:w!<CR>", "Edit Current File" },
     },
+    P = {
+        name = "Projects",
+        h = { ":tabnew<CR>:edit C:/dev/HyperSail/todo.txt<CR>", "Hypersail" },
+        p = { ":tabnew<CR>:edit C:/dev/Projects/Pando/todo.txt<CR>", "Pando" },
+    },
     ["/"] = { ":lua require'telescope.builtin'.live_grep{}<CR>", "Search from current directory" }
 }, { prefix = "<leader>" })
 
@@ -186,3 +191,4 @@ noremap_silent("n", "<down>", ":call comfortable_motion#flick(100)<CR>")
 noremap_silent("n", "<up>", ":call comfortable_motion#flick(-100)<CR>")
 map_silent("n", "<ESC>", (":noh<CR>" .. ":call v:lua.g.hide_terminal()<CR>"))
 leap.add_default_mappings()
+noremap_silent("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
