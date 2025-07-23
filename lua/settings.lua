@@ -1,9 +1,10 @@
-local lualine = require("lualine")
-local telescope = require("telescope")
-local noice = require("noice")
+local autocmd = vim.api.nvim_create_autocmd
+
 local notify = require("notify")
 local configLocal = require("config-local")
-local autocmd = vim.api.nvim_create_autocmd
+local lualine = require("lualine")
+local noice = require("noice")
+local telescope = require("telescope")
 
 local util = require("util")
 
@@ -51,7 +52,7 @@ lualine.setup({
     }
 })
 
--- Noice
+--Noice
 noice.setup({
     presets = {
         bottom_search = false,

@@ -78,7 +78,7 @@ return require("lazy").setup({
             "ms-jpq/coq.artifacts",
             branch = "artifacts"
         },
-        build = ":COQdeps",
+        -- build = ":COQdeps",
         init = function()
             vim.g["coq_settings"] = { auto_start = true }
         end,
@@ -109,21 +109,27 @@ return require("lazy").setup({
         }
     },
     {
-      'stevearc/oil.nvim',
-      dependencies = { { "nvim-tree/nvim-web-devicons" } },
-      lazy = false,
+        'stevearc/oil.nvim',
+        dependencies = { { "nvim-tree/nvim-web-devicons" } },
+        lazy = false,
     },
     {
         'kwkarlwang/bufresize.nvim',
         opts = {
             register = {
-              trigger_events = { 'BufWinEnter', 'WinEnter', 'WinResized' },
+                trigger_events = { 'BufWinEnter', 'WinEnter', 'WinResized' },
             },
             resize = {
-              keys = {},
-              trigger_events = { 'VimResized' },
-              increment = false,
+                keys = {},
+                trigger_events = { 'VimResized' },
+                increment = false,
             },
         },
     },
+    { 
+        "tadmccorkle/markdown.nvim",
+        config = function()
+            require("markdown").setup()
+        end,
+    }
 })
