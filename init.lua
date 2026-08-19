@@ -15,6 +15,5 @@ end
 req("plugins")
 req("settings")
 req("lsp")
-req("treesitter")
 req("bindings")
 return {}

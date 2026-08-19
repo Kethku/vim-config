@@ -5,6 +5,8 @@ local configLocal = require("config-local")
 local lualine = require("lualine")
 local noice = require("noice")
 local telescope = require("telescope")
+local termEdit = require("term-edit")
+local bufferline = require("bufferline")
 
 local util = require("util")
 
@@ -52,6 +54,8 @@ lualine.setup({
     }
 })
 
+bufferline.setup()
+
 --Noice
 noice.setup({
     presets = {
@@ -84,6 +88,10 @@ vim.g.markdown_fenced_languages = { "javascript", "typescript", "js=javascript" 
 vim.g.vim_markdown_folding_disabled = 1
 
 -- Terminal
+termEdit.setup({
+    prompt_end = '> ',
+    feedkeys_delay = 1000,
+})
 vim.cmd("autocmd FileType floaterm setlocal winblend=10")
 vim.g.floaterm_position = "center"
 vim.g.floaterm_shell = "pwsh"
@@ -252,6 +260,13 @@ vim.g.experimental_layer_grouping = true
 vim.g.coq_settings = { auto_start = "shut-up" }
 
 -- Options
+vim.opt.guicursor = table.concat({
+  "n-v-c:block", -- Normal, Visual, Command: block cursor
+  "i:ver25",     -- Insert: bar cursor
+  "r-cr:hor20",  -- Replace: underline
+  "o:hor50",     -- Operator-pending
+  "t:ver25",     -- Terminal: vertical bar with TermCursor color
+}, ",")
 vim.o.winblend = 20
 vim.o.pumblend = 20
 vim.o.ve = "block"
@@ -278,10 +293,10 @@ vim.o.mousemodel = "extend"
 vim.o.autochdir = true
 vim.cmd([[
   " Use persistent history.
-  if !isdirectory("C:/dev/Undo")
-      call mkdir("C:/dev/Undo", "", 0700)
+  if !isdirectory("C:/Users/KaySimmons/Undo")
+      call mkdir("C:/Users/KaySimmons/Undo", "", 0700)
   endif
-  set undodir=C:/dev/Undo
+  set undodir=C:/Users/KaySimmons/Undo
   set undofile
 ]])
 

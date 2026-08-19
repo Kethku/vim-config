@@ -5,17 +5,7 @@ return require("lazy").setup({
     "jakemason/ouroboros",
     "nvim-lualine/lualine.nvim",
     "kyazdani42/nvim-web-devicons",
-    { 
-        "romgrk/barbar.nvim",
-        init = function() vim.g.barbar_auto_setup = false end,
-        opts = {
-          -- Automatically hide the tabline when there are this many buffers left.
-          -- Set to any value >=0 to enable.
-          auto_hide = 1,
-
-        },
-        version = "^1.0.0",
-    },
+    "akinsho/bufferline.nvim", 
     {
         "rebelot/kanagawa.nvim",
         opts = {
@@ -38,7 +28,6 @@ return require("lazy").setup({
         lazy = false
     },
     "yuttie/comfortable-motion.vim",
-    "nvim-treesitter/nvim-treesitter",
     "nvim-telescope/telescope.nvim",
     {
         "nvim-telescope/telescope-frecency.nvim",
@@ -48,8 +37,26 @@ return require("lazy").setup({
     },
     "nvim-telescope/telescope-project.nvim",
     "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
+    {
+        "williamboman/mason-lspconfig.nvim",
+        opts = {},
+        dependencies = {
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
+        },
+    },
+    {
+        "neovim/nvim-lspconfig",
+        lazy = false,
+        dependencies = {
+            { "ms-jpq/coq_nvim", branch = "coq" },
+            { "ms-jpq/coq.artifacts", branch = "artifacts" },
+            { 'ms-jpq/coq.thirdparty', branch = "3p" }
+        },
+        init = function()
+            vim.g.coq_settings = { auto_start = "shut-up" }
+        end,
+    },
     {
         "j-hui/fidget.nvim",
         branch = "legacy"
@@ -71,26 +78,12 @@ return require("lazy").setup({
     "klen/nvim-config-local",
     "folke/trouble.nvim",
     "lukas-reineke/lsp-format.nvim",
-    {
-        "ms-jpq/coq_nvim",
-        branch = "coq",
-        dependencies = {
-            "ms-jpq/coq.artifacts",
-            branch = "artifacts"
-        },
-        -- build = ":COQdeps",
-        init = function()
-            vim.g["coq_settings"] = { auto_start = true }
-        end,
-        lazy = false
-    },
     "github/copilot.vim",
     "tpope/vim-commentary",
     {
         "folke/which-key.nvim",
         opts = { notify = false }
     },
-    "ggandor/leap.nvim",
     {
         "folke/noice.nvim",
         event = "VeryLazy",
@@ -131,5 +124,11 @@ return require("lazy").setup({
         config = function()
             require("markdown").setup()
         end,
+    },
+    "NeogitOrg/neogit",
+    {
+        'chomosuke/term-edit.nvim',
+        event = 'TermOpen',
+        version = '1.*',
     }
 })

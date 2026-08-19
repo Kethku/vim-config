@@ -1,4 +1,4 @@
-local config = require("lspconfig")
+local coq = require("coq")
 local dap = require("dap")
 local dap_projects = require("nvim-dap-projects")
 local dap_ui = require("dapui")
@@ -15,19 +15,21 @@ mason.setup({})
 masonLspconfig.setup()
 lsp_format.setup()
 
-config.ts_ls.setup({ on_attach = lsp_format.on_attach })
-config.omnisharp.setup({ on_attach = lsp_format.on_attach })
-config.gdscript.setup({
-    cmd = { "ncat", "localhost", "6005" },
-    flags = { debounce_text_changes = 500 },
-    on_attach =
-        lsp_format.on_attach
-})
-config.rust_analyzer.setup({ on_attach = lsp_format.on_attach })
-config.clangd.setup({
-    cmd = { "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/Llvm/x64/bin/clangd.exe" },
-    on_attach = lsp_format.on_attach
-})
+vim.lsp.config("rust_analyzer", coq.lsp_ensure_capabilities({ on_attach = lsp_format.on_attach }));
+vim.lsp.enable("rust_analyzer")
+-- config.ts_ls.setup({ on_attach = lsp_format.on_attach })
+-- config.omnisharp.setup({ on_attach = lsp_format.on_attach })
+-- config.gdscript.setup({
+--     cmd = { "ncat", "localhost", "6005" },
+--     flags = { debounce_text_changes = 500 },
+--     on_attach =
+--         lsp_format.on_attach
+-- })
+-- config.rust_analyzer.setup()
+-- config.clangd.setup({
+--     cmd = { "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/Llvm/x64/bin/clangd.exe" },
+--     on_attach = lsp_format.on_attach
+-- })
 
 fidget.setup({})
 lspsaga.setup({ ui = { winblend = 50, border = "none" }, symbol_in_winbar = { enable = true }, lightbulb = { enable = false }, outline = { win_position = "float", close_after_jump = true } })
